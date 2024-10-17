@@ -6,11 +6,9 @@ function App() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch("http://localhost:3001/api/test", {
-                method: "GET",
-                credentials: "include",
-            });
+            const response = await fetch("http://localhost:3001/api/");
             const result = await response.json();
+            console.log(response);
             console.log(result);
             if (response.ok) setData(result.message);
         };

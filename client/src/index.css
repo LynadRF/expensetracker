@@ -1,24 +1,24 @@
 :root {
-  font-family: "Verdana", "Helvetica", sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  font-size: max(12px, 2vmin);
+    font-family: "Verdana", "Helvetica", sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    font-size: max(12px, 2vmin);
 
-  --color5: #202128;
-  --color4: #7c848e;
-  --color3: #855c7b;
-  --color2: #b0b3ac;
-  --color1: #eff0e8;
-  --color_red: #bc3445;
+    --color5: #202128;
+    --color4: #7c848e;
+    --color3: #855c7b;
+    --color2: #b0b3ac;
+    --color1: #eff0e8;
+    --color_red: #bc3445;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: var(--color5);
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: var(--color5);
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
 }
 
 body {
-  margin: 0;
+    margin: 0;
 }

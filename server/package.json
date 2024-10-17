@@ -1,27 +1,26 @@
 {
     "name": "server",
     "version": "1.0.0",
-    "main": "app.ts",
+    "main": "src/app.ts",
     "scripts": {
-        "dev": "npx tsc && nodemon dist/app.js",
-        "server": "npx tsc && node dist/app.js"
+        "build": "npx tsc",
+        "start": "npm run build && node dist/app.js",
+        "dev": "nodemon src/app.ts"
     },
     "dependencies": {
         "cookie-parser": "^1.4.7",
         "cors": "^2.8.5",
         "dotenv": "^16.4.5",
-        "express": "^4.21.1",
-        "jsonwebtoken": "^9.0.2"
+        "express": "^4.21.1"
     },
     "devDependencies": {
         "@types/cookie-parser": "^1.4.7",
         "@types/cors": "^2.8.17",
         "@types/dotenv": "^6.1.1",
         "@types/express": "^5.0.0",
-        "@types/jsonwebtoken": "^9.0.7",
-        "@types/react": "^18.3.11",
-        "@types/react-dom": "^18.3.1",
+        "@types/node": "^22.7.6",
         "nodemon": "^3.1.7",
+        "ts-node": "^10.9.2",
         "typescript": "^5.6.3"
     }
 }
