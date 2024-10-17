@@ -3,6 +3,8 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import cors from "cors";
 
+import user from "./routes/user";
+
 dotenv.config();
 
 const app: Express = express();
@@ -19,9 +21,7 @@ app.use(
     })
 );
 
-app.get("/api/", (req: Request, res: Response) => {
-    res.status(200).send({ message: "Hello World!" });
-});
+app.use("/api/user", user);
 
 app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);

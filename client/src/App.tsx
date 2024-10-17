@@ -6,7 +6,14 @@ function App() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch("http://localhost:3001/api/");
+            const response = await fetch("http://localhost:3001/api/user/login", {
+                method: "POST",
+                credentials: "include",
+                body: JSON.stringify({ email: "danielfleischmann03@web.de", password: "1234" }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
             const result = await response.json();
             console.log(response);
             console.log(result);
