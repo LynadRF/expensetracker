@@ -1,5 +1,5 @@
 export default async function requestAPI(method: "GET" | "POST" | "DELETE" | "PATCH", path: string, data?: object) {
-    const apiUrl: string = import.meta.env.VITE_API_URL || "http://localhost:3001";
+    const apiUrl: string = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
     try {
         switch (method) {
             case "GET":

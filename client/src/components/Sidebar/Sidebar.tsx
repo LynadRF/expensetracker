@@ -1,20 +1,26 @@
-import { Link } from "react-router-dom";
-import "./Sidebar.css";
 import { ReactElement } from "react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWallet, faHouse, faList, faChartSimple, faGear } from "@fortawesome/free-solid-svg-icons";
+import "./Sidebar.css";
 
 export default function Sidebar() {
     const sidebarData: { name: string; route: string; image: ReactElement }[] = [
-        { name: "Home", route: "/home", image: <i className="bx bx-home"></i> },
-        { name: "Manage", route: "/manage", image: <i className="bx bx-list-ul"></i> },
-        { name: "Statistics", route: "/statistics", image: <i className="bx bx-stats"></i> },
-        { name: "Settings", route: "/settings", image: <i className="bx bx-cog"></i> },
+        {
+            name: "Home",
+            route: "/home",
+            image: <FontAwesomeIcon icon={faHouse} />,
+        },
+        { name: "Manage", route: "/manage", image: <FontAwesomeIcon icon={faList} /> },
+        { name: "Statistics", route: "/statistics", image: <FontAwesomeIcon icon={faChartSimple} /> },
+        { name: "Settings", route: "/settings", image: <FontAwesomeIcon icon={faGear} /> },
     ];
     return (
         <>
             <nav className="sidebar-container">
                 <div className="sidebar-app">
                     <div className="app-icon">
-                        <i className="bx bx-wallet"></i>
+                        <FontAwesomeIcon icon={faWallet} />
                     </div>
                     <p className="app-text-long">BudgetTracker</p>
                     <p className="app-text-short">BTracker</p>
