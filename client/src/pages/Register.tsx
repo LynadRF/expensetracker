@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUser, faKey } from "@fortawesome/free-solid-svg-icons";
+import useAuthRedirect from "../hooks/useAuthRedirect";
 import requestAPI from "../api";
 import "../styles/Auth.css";
 
 export default function Register() {
+    useAuthRedirect("/");
     const [formValues, setFormValues] = useState({
         email: "",
         username: "",
@@ -24,7 +26,7 @@ export default function Register() {
     const handleRegister = () => {
         const fetch = async () => {
             const response = await requestAPI("POST", "/user/register", formValues);
-            const result = await response?.json();
+            const result = await response.json();
             console.log(result);
         };
         fetch();

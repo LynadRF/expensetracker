@@ -2,19 +2,24 @@ import { Router } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { getDb } from "../db/db";
+import { authenticateToken } from "../middleware";
 
 const user = Router();
 export default user;
 
-const secretKey = process.env.ENCRYPTIONKEY || "verysecretkey!";
+const secretKey: string = process.env.ENCRYPTIONKEY || "verysecretkey!";
 
 const validateEmail = (email: string) => {
-    return String(email)
+    return email
         .toLowerCase()
         .match(
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         );
 };
+
+user.get("/authenticate", authenticateToken, async (_req, res) => {
+    res.status(200).send({ message: "AUTHENTICATED" });
+});
 
 user.post("/register", async (req, res) => {
     const { email, username, password } = req.body;
@@ -39,7 +44,7 @@ user.post("/register", async (req, res) => {
     }
 
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword: string = await bcrypt.hash(password, 10);
         const insertion = await db.run(
             "insert into users (email, username, password, created_at) values (:email, :username, :password, datetime('now'))",
             {

@@ -1,9 +1,16 @@
-export default async function requestAPI(method: "GET" | "POST" | "DELETE" | "PATCH", path: string, data?: object) {
-    const apiUrl: string = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
+export default async function requestAPI(
+    method: "GET" | "POST" | "DELETE" | "PATCH",
+    path: string,
+    data?: object
+): Promise<Response> {
+    const apiUrl: string = import.meta.env.API_URL || "http://localhost:3001/api";
     try {
         switch (method) {
             case "GET":
-                return await fetch(apiUrl + path);
+                return await fetch(apiUrl + path, {
+                    method: method,
+                    credentials: "include",
+                });
             case "POST":
             case "DELETE":
             case "PATCH":
@@ -17,6 +24,12 @@ export default async function requestAPI(method: "GET" | "POST" | "DELETE" | "PA
                 });
         }
     } catch {
-        return null;
+        return new Response(JSON.stringify({ error: "Error fetching" }), {
+            status: 500,
+            statusText: "Internal Server Error",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
     }
 }

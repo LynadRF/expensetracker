@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
+import useAuthRedirect from "../hooks/useAuthRedirect";
 import requestAPI from "../api";
 import "../styles/Auth.css";
 
 export default function Login() {
+    useAuthRedirect("/");
     const [formValues, setFormValues] = useState({
         email: "",
         password: "",
@@ -20,11 +22,13 @@ export default function Login() {
         setFormValues((prevState) => ({ ...prevState, [name]: value }));
     };
 
+    const navigate = useNavigate();
     const handleLogin = () => {
         const fetch = async () => {
             const response = await requestAPI("POST", "/user/login", formValues);
-            const result = await response?.json();
+            const result = await response.json();
             console.log(result);
+            if (response.ok) navigate("/");
         };
         fetch();
     };

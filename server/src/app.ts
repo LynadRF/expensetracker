@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -9,8 +9,8 @@ dotenv.config();
 
 const app: Express = express();
 
-const clientUrl = process.env.CLIENT_URL || "http://localhost:3000";
-const port = process.env.PORT || 3001;
+const clientUrl: string = process.env.CLIENT_URL || "http://localhost:3000";
+const port: string = process.env.PORT || "3001";
 
 app.use(express.json());
 app.use(cookieParser());

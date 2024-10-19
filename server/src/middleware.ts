@@ -1,13 +1,18 @@
 import jwt from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
+import dotenv from "dotenv";
+dotenv.config();
 
-const secretKey = process.env.ENCRYPTIONKEY || "verysecretkey!";
+const secretKey: string = process.env.ENCRYPTIONKEY || "verysecretkey!";
 
 // This middleware function throws an error if a request with an invalid token is made.
 // If the token is valid it creates a new token and sets it as a cookie (to refresh the 30min timer of the tokens)
 export function authenticateToken(req: Request, res: Response, next: NextFunction) {
     const token = req.cookies.jwt;
-    if (!token) return res.status(401).send("NOT_AUTHORIZED");
+    if (!token) {
+        res.status(401).send("NOT_AUTHORIZED");
+        return;
+    }
 
     try {
         const decoded = jwt.verify(token, secretKey) as { id: string };
@@ -22,6 +27,11 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
 
         next();
     } catch (error) {
+        // Remove invalid jwt-cookie
+        res.clearCookie("jwt", {
+            httpOnly: true,
+            expires: new Date(0), // Setting the expiration to a past date effectively removes the cookie
+        });
         res.status(401).send("NOT_AUTHORIZED");
     }
 }
