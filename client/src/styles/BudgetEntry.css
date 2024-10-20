@@ -1,0 +1,113 @@
+.be-container {
+    display: flex;
+    align-items: center;
+    height: max(8vh, 50px);
+}
+
+.be-fieldset {
+    display: grid;
+    grid-template-columns: 4fr minmax(125px, 1fr) 1fr 5vw;
+    background-color: var(--color2);
+    border-radius: 50px;
+    padding: max(5px, 1vmin);
+    margin: 0 max(5vw, 10px);
+    height: 80%;
+    align-items: end;
+}
+
+.be-fieldset > div {
+    height: 60%;
+    margin: 0.75vmax;
+}
+
+.be-description {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color1);
+    border-radius: 25px;
+}
+
+.be-description-input {
+    width: 100%;
+    margin: 0 1.5vw;
+    color: var(--color5);
+    background-color: var(--color1);
+    border-radius: 25px;
+    border: 0;
+    font-size: max(12px, 2vmin);
+}
+
+.be-description-input:focus {
+    outline: none;
+}
+
+.be-amount {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color1);
+    border-radius: 25px;
+}
+
+.be-amount * {
+}
+
+.be-amount-input {
+    width: 100%;
+    color: var(--color5);
+    background-color: var(--color1);
+    border-radius: 25px;
+    border: 0;
+    padding-right: 2px;
+    margin-right: 5px;
+    margin-left: max(5px, 0.5vw);
+    text-align: right;
+    font-size: max(12px, 2vmin);
+}
+
+.be-amount-input::-webkit-outer-spin-button,
+.be-amount-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.be-amount-input:focus {
+    outline: none;
+}
+
+.be-currency-icon {
+    font-size: max(16px, 2.5vmin);
+    margin-right: max(5px, 2vmin);
+    color: black;
+    background-color: var(--color1);
+}
+
+.be-category {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.be-category-select {
+}
+
+.be-add {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.be-add-btn {
+    background-color: var(--color2);
+    border: 0;
+    cursor: pointer;
+}
+
+.be-add-icon {
+    font-size: max(16px, 3.5vmin);
+    color: black;
+    background-color: var(--color2);
+    color: var(--color1);
+}

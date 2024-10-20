@@ -22,6 +22,7 @@
 
 main {
     margin-left: max(16vw, 85px);
+    margin-right: max(1vw, 5px);
 }
 
 body {

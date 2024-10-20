@@ -36,7 +36,7 @@ export default function Register() {
         <>
             <div className="auth-container">
                 <div className="auth">
-                    <fieldset>
+                    <fieldset className="auth-fieldset">
                         <h1>Register</h1>
                         <div className="auth-div">
                             <label className="auth-label">E-Mail</label>

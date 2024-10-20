@@ -37,7 +37,7 @@ export default function Login() {
         <>
             <div className="auth-container">
                 <div className="auth">
-                    <fieldset>
+                    <fieldset className="auth-fieldset">
                         <h1>Login</h1>
                         <div className="auth-div">
                             <label className="auth-label">E-Mail</label>
