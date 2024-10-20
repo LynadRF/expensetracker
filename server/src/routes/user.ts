@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { getDb } from "../db/db";
 import { authenticateToken } from "../middleware";
+import { Database } from "sqlite";
 
 const user = Router();
 export default user;
@@ -34,7 +35,7 @@ user.post("/register", async (req, res) => {
         return;
     }
 
-    const db = await getDb();
+    const db: Database = await getDb();
 
     const user = await db.get("select * from users where email = :email", { ":email": email });
 

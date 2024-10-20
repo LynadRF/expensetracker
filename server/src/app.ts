@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 import user from "./routes/user";
+import record from "./routes/record";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use(
 );
 
 app.use("/api/user", user);
+app.use("/api/record", record);
 
 app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);

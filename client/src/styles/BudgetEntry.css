@@ -12,7 +12,8 @@
     padding: max(5px, 1vmin);
     margin: 0 max(5vw, 10px);
     height: 80%;
-    align-items: end;
+    align-items: center;
+    border: solid 3px var(--color5);
 }
 
 .be-fieldset > div {
@@ -91,6 +92,18 @@
 }
 
 .be-category-select {
+    width: 100%;
+    height: 100%;
+    font-size: max(12px, 2vmin);
+    font-weight: bold;
+    color: var(--color5);
+    background-color: var(--color1);
+    border-radius: 25px;
+    padding-left: 1vw;
+}
+
+.be-category-option {
+    background-color: transparent;
 }
 
 .be-add {
