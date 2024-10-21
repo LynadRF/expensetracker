@@ -45,14 +45,14 @@ record.post("/add", async (req, res) => {
     }
 });
 
-record.get("/entries", async (_req, res) => {
+record.get("/records", async (_req, res) => {
     const accountId: number = res.locals.id;
 
     const db: Database = await getDb();
 
     try {
         const selection = await db.all(
-            "select description, amount, category, created_at from records where userId = :accountId",
+            "select description, amount, category, created_at from records where userId = :accountId order by created_at desc",
             { ":accountId": accountId }
         );
         res.status(200).send({ message: "FETCHED_ENTRIES", data: selection });

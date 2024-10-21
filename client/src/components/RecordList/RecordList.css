@@ -1,0 +1,60 @@
+.recordlist-container {
+    max-height: 75vh;
+    background-color: var(--color4);
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    margin: 1vh calc(4vw + 0px);
+}
+
+.record-container {
+    display: grid;
+    grid-template-columns: 2fr 3fr 2fr 1fr 35px;
+    justify-items: start;
+    align-items: center;
+}
+
+.record-category {
+    font-size: max(10px, 2.5vmin);
+    font-weight: bold;
+}
+
+.record-description {
+    font-size: max(8px, 2vmin);
+}
+
+.record-amount {
+    font-size: max(8px, 2vmin);
+    justify-self: right;
+    padding-right: 2vw;
+}
+
+.record-currency-icon {
+    background-color: var(--color4);
+    padding-left: 2px;
+}
+
+.record-created_at {
+    font-size: max(8px, 2vmin);
+    justify-self: right;
+    padding-right: 5px;
+}
+
+.record-edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.record-edit-btn {
+    background-color: var(--color4);
+    border: 0;
+    cursor: pointer;
+}
+
+.record-edit-btn:hover {
+    color: #85b79d;
+}
+
+.record-edit-icon {
+    font-size: max(12px, 2vmin);
+}

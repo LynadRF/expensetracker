@@ -1,16 +1,18 @@
 .be-container {
     display: flex;
     align-items: center;
+    justify-content: center;
     height: max(8vh, 50px);
+    margin: 1vh 0;
 }
 
 .be-fieldset {
     display: grid;
-    grid-template-columns: 4fr minmax(125px, 1fr) 1fr 5vw;
+    grid-template-columns: 3fr minmax(125px, 1fr) 1fr 5vw;
     background-color: var(--color2);
     border-radius: 50px;
-    padding: max(5px, 1vmin);
-    margin: 0 max(5vw, 10px);
+    margin: 0 max(3vw, 10px);
+    width: 100%;
     height: 80%;
     align-items: center;
     border: solid 3px var(--color5);
@@ -21,13 +23,28 @@
     margin: 0.75vmax;
 }
 
+@media only screen and (max-width: 768px) {
+    .be-container {
+        height: auto;
+        width: 100%;
+    }
+    .be-fieldset {
+        display: grid;
+        grid-template-columns: 1fr;
+        border-radius: 20px;
+    }
+    .be-fieldset > div {
+        height: 75%;
+    }
+}
+
 .be-description {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     background-color: var(--color1);
-    border-radius: 25px;
+    border-radius: 20px;
 }
 
 .be-description-input {
@@ -35,9 +52,9 @@
     margin: 0 1.5vw;
     color: var(--color5);
     background-color: var(--color1);
-    border-radius: 25px;
+    border-radius: 20px;
     border: 0;
-    font-size: max(12px, 2vmin);
+    font-size: max(10px, 2vmin);
 }
 
 .be-description-input:focus {
@@ -50,10 +67,7 @@
     justify-content: center;
     align-items: center;
     background-color: var(--color1);
-    border-radius: 25px;
-}
-
-.be-amount * {
+    border-radius: 20px;
 }
 
 .be-amount-input {
@@ -63,10 +77,9 @@
     border-radius: 25px;
     border: 0;
     padding-right: 2px;
-    margin-right: 5px;
     margin-left: max(5px, 0.5vw);
     text-align: right;
-    font-size: max(12px, 2vmin);
+    font-size: max(10px, 2vmin);
 }
 
 .be-amount-input::-webkit-outer-spin-button,
@@ -79,7 +92,7 @@
 }
 
 .be-currency-icon {
-    font-size: max(16px, 2.5vmin);
+    font-size: max(12px, 2.25vmin);
     margin-right: max(5px, 2vmin);
     color: black;
     background-color: var(--color1);
@@ -98,7 +111,7 @@
     font-weight: bold;
     color: var(--color5);
     background-color: var(--color1);
-    border-radius: 25px;
+    border-radius: 20px;
     padding-left: 1vw;
 }
 
@@ -109,6 +122,7 @@
 .be-add {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     align-items: center;
 }
 

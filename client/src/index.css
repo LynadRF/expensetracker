@@ -9,7 +9,8 @@
     --color3: #59546c;
     --color2: #8b939c;
     --color1: #f8f8f8;
-    --color_highlight: #9ca3db;
+    --color_highlight_blue: #9ca3db;
+    --color_highlight_green: #85b79d;
     --color_red: #ff0035;
 
     color-scheme: light dark;
@@ -21,10 +22,10 @@
 }
 
 main {
-    margin-left: max(16vw, 85px);
-    margin-right: max(1vw, 5px);
+    margin-left: max(15vw, 50px);
 }
 
 body {
     margin: 0;
+    overflow-y: hidden;
 }

@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEuroSign, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "../components/Sidebar/Sidebar";
 import requestAPI from "../api";
+import RecordList from "../components/RecordList/RecordList";
+import "../styles/Manage.css";
 import "../styles/BudgetEntry.css";
 
 enum Categories {
@@ -23,38 +25,15 @@ enum Currencies {
 }
 
 export default function Manage() {
-    const [entries, setEntries] = useState([]);
-
-    useEffect(() => {
-        const fetchEntries = async () => {
-            const response = await requestAPI("GET", "/record/entries");
-            const result = await response.json();
-            console.log(result);
-            if (response.ok) setEntries(result.data);
-        };
-        fetchEntries();
-    }, []);
-
-    console.log("e", entries);
-
-    const renderEntries = () => {
-        return entries.map(({ description, amount, category, created_at }) => (
-            <div>
-                {description}
-                {amount}
-                {category}
-                {created_at}
-            </div>
-        ));
-    };
-
     return (
         <>
             <Sidebar />
             <main>
-                <h1>Management</h1>
-                <BudgetEntry />
-                {renderEntries()}
+                <div className="manage-page">
+                    <h1>Management</h1>
+                    <BudgetEntry />
+                    <RecordList />
+                </div>
             </main>
         </>
     );
@@ -95,10 +74,8 @@ function BudgetEntry() {
             }
         };
         fetch();
-        console.log(entries);
     };
 
-    console.log(entries);
     return (
         <>
             <div className="be-container">
@@ -108,7 +85,7 @@ function BudgetEntry() {
                             className="be-description-input"
                             name="description"
                             type="text"
-                            placeholder="Activity, e.g. 'Rent April 2024'"
+                            placeholder="Activity, e.g. 'Monthly apartment rent'"
                             onChange={handleInputChange}
                         ></input>
                     </div>
@@ -117,7 +94,7 @@ function BudgetEntry() {
                             className="be-amount-input"
                             name="amount"
                             type="number"
-                            placeholder="e.g. 575,95"
+                            placeholder="e.g. 600,00"
                             onChange={handleInputChange}
                         ></input>
                         {currency}
