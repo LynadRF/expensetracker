@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Manage from "./pages/Manage";
 import Statistics from "./pages/Statistics";
 import Settings from "./pages/Settings";
+import Donut from "./components/Charts/DonutChart";
 import "./App.css";
 
 function App() {

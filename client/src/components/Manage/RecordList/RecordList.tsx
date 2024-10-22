@@ -1,18 +1,12 @@
 import { useEffect, useState } from "react";
-import requestAPI from "../../api";
+import requestAPI from "../../../api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEuroSign, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { RecordItem } from "../../Charts/chartTypes";
 import "./RecordList.css";
 
-type Record = {
-    description: string;
-    amount: number;
-    category: string;
-    created_at: string;
-};
-
 export default function RecordList() {
-    const [records, setRecords] = useState<Record[]>([]);
+    const [records, setRecords] = useState<RecordItem[]>([]);
 
     useEffect(() => {
         const fetchRecords = async () => {
@@ -35,7 +29,11 @@ export default function RecordList() {
     );
 }
 
-function Record({ record }) {
+type RecordProps = {
+    record: RecordItem;
+};
+
+function Record({ record }: RecordProps) {
     const currency = <FontAwesomeIcon className="record-currency-icon" icon={faEuroSign} />;
     const formatDate = (date: string) => {
         let result = "";
