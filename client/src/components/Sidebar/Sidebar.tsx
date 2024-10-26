@@ -7,8 +7,8 @@ import "./Sidebar.css";
 export default function Sidebar() {
     const sidebarData: { name: string; route: string; image: ReactElement }[] = [
         { name: "Home", route: "/home", image: <FontAwesomeIcon icon={faHouse} /> },
-        { name: "Manage", route: "/manage", image: <FontAwesomeIcon icon={faList} /> },
-        { name: "Statistics", route: "/statistics", image: <FontAwesomeIcon icon={faChartSimple} /> },
+        { name: "Manage", route: "/my/manage", image: <FontAwesomeIcon icon={faList} /> },
+        { name: "Statistics", route: "/my/statistics", image: <FontAwesomeIcon icon={faChartSimple} /> },
         { name: "Settings", route: "/settings", image: <FontAwesomeIcon icon={faGear} /> },
     ];
 

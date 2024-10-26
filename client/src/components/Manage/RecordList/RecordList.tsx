@@ -1,22 +1,11 @@
-import { useEffect, useState } from "react";
-import requestAPI from "../../../api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEuroSign, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { RecordItem } from "../../Charts/chartTypes";
+import { useRecords } from "../../../hooks/useContextCustom";
 import "./RecordList.css";
 
 export default function RecordList() {
-    const [records, setRecords] = useState<RecordItem[]>([]);
-
-    useEffect(() => {
-        const fetchRecords = async () => {
-            const response = await requestAPI("GET", "/record/records");
-            const result = await response.json();
-            console.log(result);
-            if (response.ok) setRecords(result.data);
-        };
-        fetchRecords();
-    }, []);
+    const { records } = useRecords();
 
     const renderRecords = () => {
         return records.map((record, index) => <Record record={record} key={index} />);
