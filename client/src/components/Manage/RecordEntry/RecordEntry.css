@@ -57,10 +57,6 @@
     font-size: max(10px, 2vmin);
 }
 
-.recordentry-description-input:focus {
-    outline: none;
-}
-
 .recordentry-amount {
     display: flex;
     flex-direction: row;
@@ -82,15 +78,6 @@
     font-size: max(10px, 2vmin);
 }
 
-.recordentry-amount-input::-webkit-outer-spin-button,
-.recordentry-amount-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-}
-
-.recordentry-amount-input:focus {
-    outline: none;
-}
-
 .recordentry-currency-icon {
     font-size: max(12px, 2.25vmin);
     margin-right: max(5px, 2vmin);
@@ -105,7 +92,6 @@
 }
 
 .recordentry-category-select {
-    width: 100%;
     height: 100%;
     font-size: max(12px, 2vmin);
     font-weight: bold;

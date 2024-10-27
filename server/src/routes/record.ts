@@ -52,7 +52,7 @@ record.get("/records", async (_req, res) => {
 
     try {
         const selection = await db.all(
-            "select description, amount, category, created_at from records where userId = :accountId order by created_at desc",
+            "select id, description, amount, category, created_at from records where userId = :accountId order by created_at desc",
             { ":accountId": accountId }
         );
         res.status(200).send({ message: "FETCHED_ENTRIES", data: selection });
@@ -65,10 +65,10 @@ record.get("/records", async (_req, res) => {
 });
 
 record.post("/edit", async (req, res) => {
-    const { newDescription, newAmount, newCategory, oldDescription, created_at } = req.body;
+    const { id, newDescription, newAmount, newCategory } = req.body;
     const accountId: number = res.locals.id;
 
-    if (!newDescription || !newAmount || !newCategory || !oldDescription || !created_at) {
+    if (!id || !newDescription || !newAmount || !newCategory) {
         res.status(400).send({ error: "MISSING_INFORMATION" });
         return;
     }
@@ -77,14 +77,13 @@ record.post("/edit", async (req, res) => {
 
     try {
         const update = await db.run(
-            "update records set description = :newDescription, amount = :newAmount, category = :newCategory where userId = :userId and description = :oldDescription and created_at = :created_at",
+            "update records set description = :newDescription, amount = :newAmount, category = :newCategory where id = :id and userId = :userId",
             {
                 ":newDescription": newDescription,
                 ":newAmount": newAmount,
                 ":newCategory": newCategory,
+                ":id": id,
                 ":userId": accountId,
-                ":oldDescription": oldDescription,
-                ":created_at": created_at,
             }
         );
         console.log("Updated record:", update);
@@ -92,6 +91,32 @@ record.post("/edit", async (req, res) => {
         return;
     } catch (error) {
         console.error("Error editing record:", error);
+        res.status(500).send({ error: "INTERNAL_SERVER_ERROR" });
+        return;
+    }
+});
+
+record.delete("/delete/:id", async (req, res) => {
+    const id = req.params.id;
+    const accountId = res.locals.id;
+
+    if (!id) {
+        res.status(400).send({ error: "MISSING_INFORMATION" });
+        return;
+    }
+
+    const db: Database = await getDb();
+
+    try {
+        const deletion = await db.run("delete from records where id = :id and userId = :userId", {
+            ":id": id,
+            ":userId": accountId,
+        });
+        console.log("Deleted record:", deletion);
+        res.status(200).send({ message: "DELETED_RECORD" });
+        return;
+    } catch (error) {
+        console.error("Error deleting record:", error);
         res.status(500).send({ error: "INTERNAL_SERVER_ERROR" });
         return;
     }

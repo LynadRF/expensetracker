@@ -1,22 +1,13 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEuroSign, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useRecords } from "../../../hooks/useContextCustom";
+import { Categories } from "../../../types/enums";
 import requestAPI from "../../../api";
 import "./RecordEntry.css";
 
-enum Categories {
-    "Rent",
-    "Home",
-    "Utilities",
-    "Transport",
-    "Groceries",
-    "Dining",
-    "Leisure",
-    "Pets",
-    "Other",
-}
-
 export default function RecordEntry() {
+    const { setRecords } = useRecords();
     const currency = <FontAwesomeIcon className="recordentry-currency-icon" icon={faEuroSign} />;
     const [formValues, setFormValues] = useState({
         description: "",
@@ -38,6 +29,18 @@ export default function RecordEntry() {
             const response = await requestAPI("POST", "/record/add", formValues);
             const result = await response.json();
             console.log(result);
+            if (response.ok) {
+                setRecords((prevState) => [
+                    {
+                        id: -1,
+                        description: formValues.description,
+                        amount: formValues.amount,
+                        category: formValues.category,
+                        created_at: "now",
+                    },
+                    ...prevState,
+                ]);
+            }
         };
         fetch();
     };

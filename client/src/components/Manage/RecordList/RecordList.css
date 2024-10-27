@@ -8,7 +8,7 @@
 
 .record-container {
     display: grid;
-    grid-template-columns: 2fr 3fr 2fr 1fr 35px;
+    grid-template-columns: 2fr 5fr 2fr 1fr 35px;
     justify-items: start;
     align-items: center;
 }
@@ -36,7 +36,7 @@
 .record-created_at {
     font-size: max(8px, 2vmin);
     justify-self: right;
-    padding-right: 5px;
+    padding-right: 10px;
 }
 
 .record-edit {
@@ -57,4 +57,55 @@
 
 .record-edit-icon {
     font-size: max(12px, 2vmin);
+}
+
+.record-modal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    width: max-content;
+    height: max-content;
+
+    padding: 1vh 2vw;
+
+    color: var(--color4);
+}
+
+.record-modal-col {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.record-modal-p {
+    font-weight: bold;
+}
+
+.record-modal-input {
+    width: 50%;
+    border: 2px solid var(--color3);
+    border-radius: 10px;
+    padding: 4px 6px;
+    background-color: var(--color1);
+    color: var(--color4);
+    font-weight: bold;
+}
+
+.record-modal-btn {
+    background-color: var(--color4);
+    border: 0;
+    border-radius: 5px;
+    margin-top: max(1vh, 5px);
+    padding: max(1vh, 5px) max(1vw, 5px);
+    transition: 0.3s;
+}
+
+.record-modal-btn:hover {
+    background-color: var(--color_highlight_green);
+}
+
+.record-delete:hover {
+    background-color: var(--color_red);
 }

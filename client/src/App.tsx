@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { RecordItem } from "./components/Charts/chartTypes";
+import { RecordItem } from "./types/types";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";

@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { useRecords } from "../hooks/useContextCustom";
 import requestAPI from "../api";
 
-export default function My() {
+export default function Records() {
     const { setRecords } = useRecords();
 
     useEffect(() => {

@@ -49,10 +49,6 @@
     height: 100%;
 }
 
-.auth-input-field:focus {
-    outline: none;
-}
-
 .auth-btn {
     background-color: var(--color3);
     border: 0;
@@ -64,7 +60,4 @@
 
 .auth-btn:hover {
     background-color: var(--color_highlight_blue);
-    padding: max(1.1vh, 6px) max(1.1vw, 6px);
-    border: solid 2px var(--color1);
-    font-size: 16px;
 }

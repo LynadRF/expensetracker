@@ -1,4 +1,4 @@
-import { RecordItem, DataItem } from "./chartTypes";
+import { RecordItem, DataItem } from "../../types/types";
 
 export function parseRecord(data: RecordItem[]): DataItem[] {
     const hashmap: { [key: string]: number } = {};
