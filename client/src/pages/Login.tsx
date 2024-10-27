@@ -3,11 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 import useAuthRedirect from "../hooks/useAuthRedirect";
+import { useUser } from "../hooks/useContextCustom";
 import requestAPI from "../api";
 import "../styles/Auth.css";
 
 export default function Login() {
+    const { setUserInfo } = useUser();
     useAuthRedirect("/");
+
     const [formValues, setFormValues] = useState({
         email: "",
         password: "",
@@ -28,7 +31,10 @@ export default function Login() {
             const response = await requestAPI("POST", "/user/login", formValues);
             const result = await response.json();
             console.log(result);
-            if (response.ok) navigate("/");
+            if (response.ok) {
+                setUserInfo({ email: result.email, username: result.username });
+                navigate("/");
+            }
         };
         fetch();
     };

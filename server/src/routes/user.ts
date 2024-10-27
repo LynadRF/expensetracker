@@ -105,7 +105,7 @@ user.post("/login", async (req, res) => {
             expires: new Date(Date.now() + 1800000),
         });
 
-        res.status(200).send({ message: "LOGIN && TOKEN_SET" });
+        res.status(200).send({ message: "LOGIN && TOKEN_SET", data: { email: user.email, username: user.username } });
         return;
     } catch (error) {
         console.error("Error logging in:", error);

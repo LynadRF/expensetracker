@@ -63,3 +63,36 @@ record.get("/records", async (_req, res) => {
         return;
     }
 });
+
+record.post("/edit", async (req, res) => {
+    const { newDescription, newAmount, newCategory, oldDescription, created_at } = req.body;
+    const accountId: number = res.locals.id;
+
+    if (!newDescription || !newAmount || !newCategory || !oldDescription || !created_at) {
+        res.status(400).send({ error: "MISSING_INFORMATION" });
+        return;
+    }
+
+    const db: Database = await getDb();
+
+    try {
+        const update = await db.run(
+            "update records set description = :newDescription, amount = :newAmount, category = :newCategory where userId = :userId and description = :oldDescription and created_at = :created_at",
+            {
+                ":newDescription": newDescription,
+                ":newAmount": newAmount,
+                ":newCategory": newCategory,
+                ":userId": accountId,
+                ":oldDescription": oldDescription,
+                ":created_at": created_at,
+            }
+        );
+        console.log("Updated record:", update);
+        res.status(200).send({ message: "UPDATED_RECORD" });
+        return;
+    } catch (error) {
+        console.error("Error editing record:", error);
+        res.status(500).send({ error: "INTERNAL_SERVER_ERROR" });
+        return;
+    }
+});
