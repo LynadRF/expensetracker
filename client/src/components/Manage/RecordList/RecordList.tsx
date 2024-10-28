@@ -4,20 +4,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEuroSign, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { RecordItem } from "../../../types/types";
 import { Categories } from "../../../types/enums";
-import { useRecords } from "../../../hooks/useContextCustom";
+import { useRecords } from "../../../contexts/recordContext";
 import Modal from "../../Modal/Modal";
 import requestAPI from "../../../api";
 import "./RecordList.css";
 
 export default function RecordList() {
-    const { records, setRecords } = useRecords();
+    const { recordState, recordDispatch } = useRecords();
 
     const handleDeleteRecord = (recordId: number): void => {
-        setRecords((prevRecords) => prevRecords.filter((record) => record.id !== recordId));
+        recordDispatch({ type: "UPDATE", records: recordState.filter((record) => record.id !== recordId) });
     };
 
     const renderRecords = () => {
-        return records.map((record) => <Record record={record} onDelete={handleDeleteRecord} key={record.id} />);
+        return recordState.map((record) => <Record record={record} onDelete={handleDeleteRecord} key={record.id} />);
     };
 
     return (

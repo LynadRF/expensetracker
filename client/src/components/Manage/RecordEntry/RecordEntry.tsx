@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEuroSign, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { useRecords } from "../../../hooks/useContextCustom";
+import { useRecords } from "../../../contexts/recordContext";
 import { Categories } from "../../../types/enums";
 import requestAPI from "../../../api";
 import "./RecordEntry.css";
 
 export default function RecordEntry() {
-    const { setRecords } = useRecords();
+    const { recordState, recordDispatch } = useRecords();
     const currency = <FontAwesomeIcon className="recordentry-currency-icon" icon={faEuroSign} />;
     const [formValues, setFormValues] = useState({
         description: "",
@@ -30,16 +30,18 @@ export default function RecordEntry() {
             const result = await response.json();
             console.log(result);
             if (response.ok) {
-                setRecords((prevState) => [
-                    {
-                        id: -1,
-                        description: formValues.description,
-                        amount: formValues.amount,
-                        category: formValues.category,
-                        created_at: "now",
-                    },
-                    ...prevState,
-                ]);
+                const newState = recordState;
+                recordState.push({
+                    id: -1,
+                    description: formValues.description,
+                    amount: formValues.amount,
+                    category: formValues.category,
+                    created_at: "now",
+                });
+                recordDispatch({
+                    type: "UPDATE",
+                    records: newState,
+                });
             }
         };
         fetch();

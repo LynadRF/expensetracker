@@ -19,7 +19,22 @@ const validateEmail = (email: string) => {
 };
 
 user.get("/authenticate", authenticateToken, async (_req, res) => {
-    res.status(200).send({ message: "AUTHENTICATED" });
+    const accountId = res.locals.id;
+
+    const db: Database = await getDb();
+
+    // This is necessary
+    let data = { email: "", username: "" };
+    try {
+        const user = await db.get("select * from users where id = :id", { ":id": accountId });
+        data = { email: user.email, username: user.username };
+    } catch (error) {
+        console.error("Error creating user:", error);
+        res.status(500).send({ error: "INTERNAL_SERVER_ERROR" });
+        return;
+    }
+
+    res.status(200).send({ message: "AUTHENTICATED", data: data });
 });
 
 user.post("/register", async (req, res) => {

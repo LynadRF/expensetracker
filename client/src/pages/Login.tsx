@@ -3,13 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 import useAuthRedirect from "../hooks/useAuthRedirect";
-import { useUser } from "../hooks/useContextCustom";
+import { useUser } from "../contexts/userContext";
 import requestAPI from "../api";
 import "../styles/Auth.css";
 
 export default function Login() {
-    const { setUserInfo } = useUser();
     useAuthRedirect("/");
+    const { userDispatch } = useUser();
 
     const [formValues, setFormValues] = useState({
         email: "",
@@ -30,9 +30,11 @@ export default function Login() {
         const fetch = async () => {
             const response = await requestAPI("POST", "/user/login", formValues);
             const result = await response.json();
-            console.log(result);
             if (response.ok) {
-                setUserInfo({ email: result.email, username: result.username });
+                userDispatch({
+                    type: "UPDATE",
+                    userInfo: result.data,
+                });
                 navigate("/");
             }
         };
