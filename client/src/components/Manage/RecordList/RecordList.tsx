@@ -59,6 +59,7 @@ function Record({ record, onDelete }: RecordProps) {
     };
 
     const formatDateLong = (date: string) => {
+        if (date === "now") return date;
         let result = "";
         result += date.slice(11, 16) + " - " + date.slice(8, 10) + "/" + date.slice(5, 7) + "/" + date.slice(0, 4);
         return result;
@@ -111,6 +112,7 @@ function Record({ record, onDelete }: RecordProps) {
                                         name="description"
                                         type="text"
                                         onChange={handleInputChange}
+                                        placeholder={record.description}
                                         value={formValues.description}
                                     />
                                 </div>
@@ -121,6 +123,7 @@ function Record({ record, onDelete }: RecordProps) {
                                         name="amount"
                                         type="number"
                                         onChange={handleInputChange}
+                                        placeholder={record.amount.toString()}
                                         value={formValues.amount}
                                     />
                                 </div>
@@ -138,7 +141,12 @@ function Record({ record, onDelete }: RecordProps) {
                                                     className="recordentry-category-option"
                                                     key={index}
                                                     value={item}
-                                                    selected={item === formValues.category ? true : false}
+                                                    selected={item === record.category ? true : false}
+                                                    style={
+                                                        item === record.category
+                                                            ? { fontWeight: "bold", color: "var(--color_red)" }
+                                                            : {}
+                                                    }
                                                 >
                                                     {item}
                                                 </option>

@@ -45,15 +45,17 @@ record.post("/add", async (req, res) => {
     }
 });
 
-record.get("/records", async (_req, res) => {
+record.get("/records", async (req, res) => {
+    let { limit } = req.body;
     const accountId: number = res.locals.id;
 
     const db: Database = await getDb();
 
     try {
+        if (!limit) limit = 50;
         const selection = await db.all(
-            "select id, description, amount, category, created_at from records where userId = :accountId order by created_at desc",
-            { ":accountId": accountId }
+            "select id, description, amount, category, created_at from records where userId = :accountId order by created_at desc limit :limit",
+            { ":limit": limit, ":accountId": accountId }
         );
         res.status(200).send({ message: "FETCHED_ENTRIES", data: selection });
         return;
