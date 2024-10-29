@@ -36,7 +36,7 @@ record.post("/add", async (req, res) => {
             }
         );
         console.log("Created record:", insertion);
-        res.status(201).send({ message: "CREATED_RECORD" });
+        res.status(201).send({ message: "CREATED_RECORD", data: { id: insertion.lastID } });
         return;
     } catch (error) {
         console.error("Error inserting record:", error);

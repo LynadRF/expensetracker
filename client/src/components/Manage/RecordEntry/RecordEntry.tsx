@@ -30,17 +30,18 @@ export default function RecordEntry() {
             const result = await response.json();
             console.log(result);
             if (response.ok) {
-                const newState = recordState;
-                recordState.push({
-                    id: -1,
-                    description: formValues.description,
-                    amount: formValues.amount,
-                    category: formValues.category,
-                    created_at: "now",
-                });
                 recordDispatch({
                     type: "UPDATE",
-                    records: newState,
+                    records: [
+                        {
+                            id: result.data.id,
+                            description: formValues.description,
+                            amount: formValues.amount,
+                            category: formValues.category,
+                            created_at: "now",
+                        },
+                        ...recordState,
+                    ],
                 });
             }
         };
