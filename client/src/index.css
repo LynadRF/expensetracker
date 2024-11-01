@@ -2,7 +2,7 @@
     font-family: "Helvetica", sans-serif;
     line-height: 1.5;
     font-weight: 400;
-    font-size: max(12px, 2vmin);
+    font-size: max(12px, 1vw);
 
     --color5: #141b2b;
     --color4: #38405f;

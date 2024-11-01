@@ -11,6 +11,7 @@ export default function Statistics() {
         <>
             <Sidebar />
             <main>
+                <h1>Statistics</h1>
                 <Barplot width={600} height={600} data={parseRecord(recordState)} />
             </main>
         </>

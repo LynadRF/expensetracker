@@ -10,7 +10,7 @@ const secretKey: string = process.env.ENCRYPTIONKEY || "verysecretkey!";
 export function authenticateToken(req: Request, res: Response, next: NextFunction) {
     const token = req.cookies.jwt;
     if (!token) {
-        res.status(401).send("NOT_AUTHORIZED");
+        res.status(401).send({ error: "NOT_AUTHORIZED" });
         return;
     }
 
@@ -32,6 +32,6 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
             httpOnly: true,
             expires: new Date(0), // Setting the expiration to a past date effectively removes the cookie
         });
-        res.status(401).send("NOT_AUTHORIZED");
+        res.status(401).send({ error: "NOT_AUTHORIZED" });
     }
 }

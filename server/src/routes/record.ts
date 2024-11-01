@@ -46,17 +46,35 @@ record.post("/add", async (req, res) => {
 });
 
 record.get("/records", async (req, res) => {
-    let { limit } = req.body;
+    let { from, to, limit } = req.body;
     const accountId: number = res.locals.id;
+
+    let queryString: string = "";
+
+    if (from && to)
+        queryString =
+            "select id, description, amount, category, created_at from records where userId = :accountId and created_at >= :from and created_at <= :to order by created_at desc";
+    else if (from && !to)
+        queryString =
+            "select id, description, amount, category, created_at from records where userId = :accountId and created_at >= :from order by created_at desc";
+    else if (!from && to)
+        queryString =
+            "select id, description, amount, category, created_at from records where userId = :accountId and created_at <= :to order by created_at desc";
+    else
+        queryString =
+            "select id, description, amount, category, created_at from records where userId = :accountId order by created_at desc";
+
+    if (limit) queryString += " limit :limit";
 
     const db: Database = await getDb();
 
     try {
-        if (!limit) limit = 50;
-        const selection = await db.all(
-            "select id, description, amount, category, created_at from records where userId = :accountId order by created_at desc limit :limit",
-            { ":limit": limit, ":accountId": accountId }
-        );
+        const selection = await db.all(queryString, {
+            ":accountId": accountId,
+            ":from": from,
+            ":to": to,
+            ":limit": limit,
+        });
         res.status(200).send({ message: "FETCHED_ENTRIES", data: selection });
         return;
     } catch (error) {
