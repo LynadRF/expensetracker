@@ -3,7 +3,7 @@
     background-color: var(--color4);
     overflow-y: auto;
     scroll-behavior: smooth;
-    margin: 1vh calc(4vw + 0px);
+    margin: 1vh 4vw;
 }
 
 .record-container {

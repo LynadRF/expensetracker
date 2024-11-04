@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import * as d3 from "d3";
-import { DataItem } from "./chartTypes";
+import { DataItem } from "../../../types/types";
 
 type DonutChartProps = {
     width: number;

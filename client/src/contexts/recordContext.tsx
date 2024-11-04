@@ -4,7 +4,7 @@ import { RecordItem } from "../types/types";
 type FormAction = { type: "UPDATE"; records: RecordItem[] };
 
 export function recordReducer(state: RecordItem[], action: FormAction): RecordItem[] {
-    switch (action.type as string) {
+    switch (action.type) {
         case "UPDATE":
             return action.records;
         default:

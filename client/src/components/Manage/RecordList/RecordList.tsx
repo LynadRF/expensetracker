@@ -61,7 +61,7 @@ function Record({ record, onDelete }: RecordProps) {
     const formatDateLong = (date: string) => {
         if (date === "now") return date;
         let result = "";
-        result += date.slice(11, 16) + " - " + date.slice(8, 10) + "/" + date.slice(5, 7) + "/" + date.slice(0, 4);
+        result += date.slice(11, 16) + " UTC - " + date.slice(8, 10) + "/" + date.slice(5, 7) + "/" + date.slice(0, 4);
         return result;
     };
 
@@ -129,7 +129,9 @@ function Record({ record, onDelete }: RecordProps) {
                                 </div>
                                 <div className="record-modal-col">
                                     <p className="record-modal-p">Created at:</p>
-                                    <label>{formatDateLong(record.created_at)}</label>
+                                    <label style={{ fontSize: "max(12px, 0.85vw)" }}>
+                                        {formatDateLong(record.created_at)}
+                                    </label>
                                 </div>
                                 <div className="record-modal-col">
                                     <p className="record-modal-p">Category:</p>

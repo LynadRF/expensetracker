@@ -1,0 +1,35 @@
+.filter-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2vh 4vw;
+}
+
+.filter-input {
+    width: max(10vw, 75px);
+    border: 2px solid var(--color3);
+    border-radius: 10px;
+    padding: 4px 6px;
+    margin-left: max(5px, 0.5vw);
+    background-color: var(--color1);
+    color: var(--color4);
+    font-weight: bold;
+    font-size: max(10px, 0.8vw);
+}
+
+.filter-button {
+    background-color: var(--color3);
+    border: 0;
+    border-radius: 5px;
+    padding: max(1vh, 5px) max(1vw, 5px);
+    transition: 0.3s;
+}
+
+.filter-apply:hover {
+    background-color: var(--color_highlight_green);
+}
+
+.filter-reset:hover {
+    background-color: var(--color_red);
+}

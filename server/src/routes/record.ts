@@ -45,35 +45,25 @@ record.post("/add", async (req, res) => {
     }
 });
 
-record.get("/records", async (req, res) => {
-    let { from, to, limit } = req.body;
+record.post("/records", async (req, res) => {
+    let filter = req.body;
     const accountId: number = res.locals.id;
 
-    let queryString: string = "";
+    if (!filter.from) filter.from = "0000-01-01";
+    if (!filter.to) filter.to = "9999-12-31";
+    if (!filter.limit) filter.limit = 9999;
 
-    if (from && to)
-        queryString =
-            "select id, description, amount, category, created_at from records where userId = :accountId and created_at >= :from and created_at <= :to order by created_at desc";
-    else if (from && !to)
-        queryString =
-            "select id, description, amount, category, created_at from records where userId = :accountId and created_at >= :from order by created_at desc";
-    else if (!from && to)
-        queryString =
-            "select id, description, amount, category, created_at from records where userId = :accountId and created_at <= :to order by created_at desc";
-    else
-        queryString =
-            "select id, description, amount, category, created_at from records where userId = :accountId order by created_at desc";
-
-    if (limit) queryString += " limit :limit";
+    const queryString: string =
+        "select id, description, amount, category, created_at from records where userId = :accountId and created_at >= DATE(:from) and created_at <= DATE(:to) order by created_at desc limit :limit";
 
     const db: Database = await getDb();
 
     try {
         const selection = await db.all(queryString, {
             ":accountId": accountId,
-            ":from": from,
-            ":to": to,
-            ":limit": limit,
+            ":from": filter.from,
+            ":to": filter.to,
+            ":limit": filter.limit,
         });
         res.status(200).send({ message: "FETCHED_ENTRIES", data: selection });
         return;

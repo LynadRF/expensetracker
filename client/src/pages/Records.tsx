@@ -8,12 +8,12 @@ export default function Records() {
 
     useEffect(() => {
         const fetchRecords = async () => {
-            const response = await requestAPI("GET", "/record/records");
+            const response = await requestAPI("POST", "/record/records");
             const result = await response.json();
             if (response.ok) recordDispatch({ type: "UPDATE", records: result.data });
         };
         if (recordState.length === 0) fetchRecords();
-    }, [recordState, recordDispatch]);
+    }, []);
 
     return (
         <>
