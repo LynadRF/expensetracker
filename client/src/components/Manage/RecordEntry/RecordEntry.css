@@ -120,7 +120,6 @@
 
 .recordentry-add-icon {
     font-size: max(16px, 2vw);
-    color: black;
     background-color: var(--color2);
     color: var(--color1);
 }

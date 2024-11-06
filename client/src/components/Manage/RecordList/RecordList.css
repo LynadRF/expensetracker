@@ -53,7 +53,7 @@
 }
 
 .record-edit-btn {
-    background-color: var(--color4);
+    background-color: transparent;
     border: 0;
     cursor: pointer;
 }

@@ -41,6 +41,7 @@
 }
 
 .auth-input-field {
+    color: var(--color1);
     background-color: var(--color4);
     border: 0;
     padding: 5px 0;
