@@ -30,6 +30,10 @@ body {
     overflow-y: hidden;
 }
 
+button {
+    color: var(--color1);
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
