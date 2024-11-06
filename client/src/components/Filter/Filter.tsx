@@ -75,7 +75,7 @@ export default function Filter() {
         <>
             <div className="filter-container">
                 <div className="filter-child">
-                    From:
+                    <p className="filter-p">From:</p>
                     <input
                         className="filter-input"
                         type="text"
@@ -88,7 +88,7 @@ export default function Filter() {
                     />
                 </div>
                 <div className="filter-child">
-                    To:
+                    <p className="filter-p">To:</p>
                     <input
                         className="filter-input"
                         type="text"
@@ -102,12 +102,22 @@ export default function Filter() {
                 </div>
                 <div className="filter-child">
                     <button className="filter-button filter-apply" onClick={applyFilter}>
-                        Apply Filter
+                        <p className="filter-p" id="filterp1">
+                            Apply Filter
+                        </p>
+                        <p className="filter-p" id="filterp2">
+                            Apply
+                        </p>
                     </button>
                 </div>
                 <div className="filter-child">
                     <button className="filter-button filter-reset" onClick={resetFilter}>
-                        Reset Filter
+                        <p className="filter-p" id="filterp1">
+                            Reset Filter
+                        </p>
+                        <p className="filter-p" id="filterp2">
+                            Reset
+                        </p>
                     </button>
                 </div>
             </div>

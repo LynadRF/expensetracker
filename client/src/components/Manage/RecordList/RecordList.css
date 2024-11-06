@@ -18,8 +18,15 @@
     font-weight: bold;
 }
 
+.record-category-short {
+    display: none;
+    font-size: max(14px, 1.25vw);
+    font-weight: bold;
+}
+
 .record-description {
     font-size: max(12px, 1vw);
+    text-align: left;
 }
 
 .record-amount {
@@ -112,7 +119,21 @@
 
 @media only screen and (max-width: 600px) {
     .record-container {
-        grid-template-columns: 3fr 5fr 2fr 30px;
+        grid-template-columns: 25px 5fr 2fr 2fr 30px;
+    }
+
+    .record-category {
+        display: none;
+    }
+
+    .record-category-short {
+        display: flex;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .record-container {
+        grid-template-columns: 25px 5fr 2fr 30px;
     }
 
     .record-created_at {

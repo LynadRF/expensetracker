@@ -110,7 +110,7 @@ user.post("/login", async (req, res) => {
         }
 
         const token = jwt.sign({ id: user.id }, secretKey, {
-            expiresIn: "30m",
+            expiresIn: "120m",
         });
 
         res.locals.id = user.id;

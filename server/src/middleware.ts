@@ -16,11 +16,11 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
 
     try {
         const decoded = jwt.verify(token, secretKey) as { id: string };
-        const refreshedToken = jwt.sign({ id: decoded.id }, secretKey, { expiresIn: "30m" });
+        const refreshedToken = jwt.sign({ id: decoded.id }, secretKey, { expiresIn: "120m" });
 
         res.cookie("jwt", refreshedToken, {
             httpOnly: true,
-            expires: new Date(Date.now() + 1800000),
+            expires: new Date(Date.now() + 7200000),
         });
 
         res.locals.id = decoded.id;

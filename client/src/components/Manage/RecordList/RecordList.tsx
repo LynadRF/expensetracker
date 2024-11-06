@@ -1,7 +1,20 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEuroSign, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+    faEuroSign,
+    faPenToSquare,
+    faHouse,
+    faPlug,
+    faCartShopping,
+    faUtensils,
+    faPaw,
+    faIcons,
+    faC,
+    faGem,
+    faRoad,
+    faFileSignature,
+} from "@fortawesome/free-solid-svg-icons";
 import { RecordItem } from "../../../types/types";
 import { Categories } from "../../../types/enums";
 import { useRecords } from "../../../contexts/recordContext";
@@ -63,6 +76,31 @@ function Record({ record, onDelete }: RecordProps) {
         let result = "";
         result += date.slice(11, 16) + " UTC - " + date.slice(8, 10) + "/" + date.slice(5, 7) + "/" + date.slice(0, 4);
         return result;
+    };
+
+    const renderCategoryItems = (category: string): JSX.Element => {
+        switch (category) {
+            case "Rent":
+                return <FontAwesomeIcon icon={faFileSignature} />;
+            case "Home":
+                return <FontAwesomeIcon icon={faHouse} />;
+            case "Utilities":
+                return <FontAwesomeIcon icon={faPlug} />;
+            case "Transport":
+                return <FontAwesomeIcon icon={faRoad} />;
+            case "Groceries":
+                return <FontAwesomeIcon icon={faCartShopping} />;
+            case "Dining":
+                return <FontAwesomeIcon icon={faUtensils} />;
+            case "Leisure":
+                return <FontAwesomeIcon icon={faIcons} />;
+            case "Pets":
+                return <FontAwesomeIcon icon={faPaw} />;
+            case "Other":
+                return <FontAwesomeIcon icon={faGem} />;
+            default:
+                return <FontAwesomeIcon icon={faC} />;
+        }
     };
 
     const submitEdit = () => {
@@ -178,6 +216,7 @@ function Record({ record, onDelete }: RecordProps) {
         <>
             <div className="record-container">
                 <div className="record-category">{record.category}</div>
+                <div className="record-category-short">{renderCategoryItems(record.category)}</div>
                 <div className="record-description">{record.description}</div>
                 <div className="record-amount">
                     {record.amount}

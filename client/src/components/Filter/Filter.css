@@ -3,11 +3,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 2vh 4vw;
+    margin: max(2vh, 10px) 4vw;
 }
 
 .filter-input {
-    width: max(10vw, 75px);
+    width: max(10vw, 50px);
     border: 2px solid var(--color3);
     border-radius: 10px;
     padding: 4px 6px;
@@ -22,7 +22,8 @@
     background-color: var(--color3);
     border: 0;
     border-radius: 5px;
-    padding: max(1vh, 5px) max(1vw, 5px);
+    padding: max(0.75vh, 6px) max(1vw, 5px);
+    font-size: max(12px, 0.9vw);
     transition: 0.3s;
 }
 
@@ -32,4 +33,23 @@
 
 .filter-reset:hover {
     background-color: var(--color_red);
+}
+
+.filter-p {
+    display: inline-block;
+    font-size: max(10px, 1vw);
+    margin: 0;
+}
+
+#filterp2 {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    #filterp1 {
+        display: none;
+    }
+    #filterp2 {
+        display: inline-block;
+    }
 }
