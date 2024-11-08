@@ -51,43 +51,41 @@ export default function RecordEntry() {
     return (
         <>
             <div className="recordentry-container">
-                <fieldset className="recordentry-fieldset">
-                    <div className="recordentry-description">
-                        <input
-                            className="recordentry-description-input"
-                            name="description"
-                            type="text"
-                            placeholder="Activity, e.g. 'Monthly apartment rent'"
-                            onChange={handleInputChange}
-                        ></input>
-                    </div>
-                    <div className="recordentry-amount">
-                        <input
-                            className="recordentry-amount-input"
-                            name="amount"
-                            type="number"
-                            placeholder="e.g. 600,00"
-                            onChange={handleInputChange}
-                        ></input>
-                        {currency}
-                    </div>
-                    <div className="recordentry-category">
-                        <select className="recordentry-category-select" onChange={handleChange}>
-                            {Object.values(Categories)
-                                .filter((key) => isNaN(Number(key)))
-                                .map((item, index) => (
-                                    <option className="recordentry-category-option" key={index} value={item}>
-                                        {item}
-                                    </option>
-                                ))}
-                        </select>
-                    </div>
-                    <div className="recordentry-add">
-                        <button className="recordentry-add-btn" onClick={handleAddClick}>
-                            <FontAwesomeIcon className="recordentry-add-icon" icon={faPlus} />
-                        </button>
-                    </div>
-                </fieldset>
+                <div className="recordentry-description">
+                    <input
+                        className="recordentry-description-input"
+                        name="description"
+                        type="text"
+                        placeholder="Activity, e.g. 'Monthly apartment rent'"
+                        onChange={handleInputChange}
+                    ></input>
+                </div>
+                <div className="recordentry-amount">
+                    <input
+                        className="recordentry-amount-input"
+                        name="amount"
+                        type="number"
+                        placeholder="e.g. 600,00"
+                        onChange={handleInputChange}
+                    ></input>
+                    {currency}
+                </div>
+                <div className="recordentry-category">
+                    <select className="recordentry-category-select" onChange={handleChange}>
+                        {Object.values(Categories)
+                            .filter((key) => isNaN(Number(key)))
+                            .map((item, index) => (
+                                <option className="recordentry-category-option" key={index} value={item}>
+                                    {item}
+                                </option>
+                            ))}
+                    </select>
+                </div>
+                <div className="recordentry-add">
+                    <button className="recordentry-add-btn" onClick={handleAddClick}>
+                        <FontAwesomeIcon className="recordentry-add-icon" icon={faPlus} />
+                    </button>
+                </div>
             </div>
         </>
     );

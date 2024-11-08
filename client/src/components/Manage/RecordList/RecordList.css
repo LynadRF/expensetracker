@@ -1,5 +1,5 @@
 .recordlist-container {
-    max-height: 75vh;
+    max-height: 70vh;
     background-color: var(--color4);
     overflow-y: auto;
     scroll-behavior: smooth;
