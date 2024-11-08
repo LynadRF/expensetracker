@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 8fr minmax(60px, 2fr) auto 5vw;
     height: max(8vh, 40px);
-    margin: max(2vh, 10px) 4vw;
+    margin: max(1vh, 10px) 4vw;
     border-radius: 10px;
     color: var(--color1);
     background-color: var(--color3);

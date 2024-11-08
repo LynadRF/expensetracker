@@ -47,7 +47,7 @@ export default function Barplot({ width, height, data }: BarplotProps) {
                     opacity={0.7}
                     stroke="#9d174d"
                     fill="#9d174d"
-                    fillOpacity={0.3}
+                    fillOpacity={0.5}
                     strokeWidth={1}
                     rx={1}
                 />

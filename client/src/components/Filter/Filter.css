@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: max(2vh, 10px) 4vw;
+    margin: max(1vh, 10px) 4vw;
 }
 
 .filter-input {

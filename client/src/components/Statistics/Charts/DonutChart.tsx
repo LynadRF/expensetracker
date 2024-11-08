@@ -27,9 +27,9 @@ const colors = [
     "#878fb4",
 ];
 
-const MARGIN_X = 50;
-const MARGIN_Y = 0;
-const INFLEXION_PADDING = 0;
+const MARGIN_X = 150;
+const MARGIN_Y = 50;
+const INFLEXION_PADDING = 20;
 
 export default function DonutChart({ width, height, data }: DonutChartProps) {
     const radius = Math.min(width - 2 * MARGIN_X, height - 2 * MARGIN_Y) / 2;
