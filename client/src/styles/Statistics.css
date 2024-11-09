@@ -19,6 +19,7 @@
     border-radius: 5px;
     padding: max(1vh, 6px) max(1vw, 5px);
     font-size: max(14px, 1vw);
+    cursor: pointer;
     transition: 0.3s;
 }
 

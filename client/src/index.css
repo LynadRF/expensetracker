@@ -4,14 +4,15 @@
     font-weight: 400;
     font-size: max(12px, 1vw);
 
-    --color5: #141b2b;
+    --color6: #141b2b;
+    --color5: #282f4c;
     --color4: #38405f;
     --color3: #59546c;
-    --color2: #8b939c;
+    --color2: #999da3;
     --color1: #f8f8f8;
     --color_highlight_blue: #9ca3db;
     --color_highlight_green: #85b79d;
-    --color_red: #ff0035;
+    --color_red: #e71d36;
 
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);

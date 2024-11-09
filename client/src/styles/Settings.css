@@ -1,0 +1,23 @@
+.settings-navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: max(2vh, 5px) 0;
+    margin-left: max(6vw, 20px);
+}
+
+.settings-navigation-link {
+    color: inherit;
+    background-color: inherit;
+    border: 0;
+    border-radius: 5px;
+    padding: max(0.75vh, 6px) max(1vw, 5px);
+    font-size: max(1vw, 14px);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.settings-navigation-link:hover {
+    background-color: var(--color_highlight_blue);
+}
