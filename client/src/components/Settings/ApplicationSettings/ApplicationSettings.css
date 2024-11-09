@@ -1,0 +1,16 @@
+.currency-container {
+    text-align: left;
+}
+
+.currency-select {
+    font-size: max(10px, 1vw);
+    font-weight: bold;
+    background-color: var(--color5);
+    padding: 1vh 1vw;
+    border: 0;
+    border-radius: 5px;
+}
+
+.currency-option {
+    background-color: transparent;
+}

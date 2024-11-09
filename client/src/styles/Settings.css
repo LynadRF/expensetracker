@@ -21,3 +21,37 @@
 .settings-navigation-link:hover {
     background-color: var(--color_highlight_blue);
 }
+
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: max(2vh, 5px) max(2vw, 10px);
+}
+
+.settings-container > div {
+    margin-left: max(4vw, 10px);
+}
+
+.settings-container > div:not(:first-child) {
+    margin-top: max(2vh, 10px);
+}
+
+.settings-h3 {
+    margin: 0 0 max(1vh, 5px) 0;
+    text-align: left;
+}
+
+.settings-btn {
+    font-size: max(12px, 1vw);
+    background-color: var(--color3);
+    border: 0;
+    border-radius: 4px;
+    padding: max(1vh, 5px) max(1vw, 8px);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.settings-btn:hover {
+    background-color: var(--color_highlight_blue);
+}

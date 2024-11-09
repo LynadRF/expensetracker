@@ -20,11 +20,13 @@ export default function Settings() {
                         Application
                     </Link>
                 </div>
-                <Routes>
-                    <Route index element={<AccountSettings />} />
-                    <Route path="/account" element={<AccountSettings />} />
-                    <Route path="/application" element={<ApplicationSettings />} />
-                </Routes>
+                <div className="settings-container">
+                    <Routes>
+                        <Route index element={<AccountSettings />} />
+                        <Route path="/account" element={<AccountSettings />} />
+                        <Route path="/application" element={<ApplicationSettings />} />
+                    </Routes>
+                </div>
             </main>
         </>
     );

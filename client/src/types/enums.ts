@@ -9,3 +9,16 @@ export enum Categories {
     "Pets",
     "Other",
 }
+
+export enum Currency {
+    "Euro",
+    "Dollar",
+    "Yen",
+    "Sterling",
+    "Franc",
+    "Won",
+    "Rupee",
+    "Lira",
+    "Peso",
+    "Ruble",
+}

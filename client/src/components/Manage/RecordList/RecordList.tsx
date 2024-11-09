@@ -2,7 +2,6 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faEuroSign,
     faPenToSquare,
     faHouse,
     faPlug,
@@ -20,6 +19,7 @@ import { Categories } from "../../../types/enums";
 import { useRecords } from "../../../contexts/recordContext";
 import Modal from "../../Modal/Modal";
 import requestAPI from "../../../api";
+import { renderCurrencyIcon } from "../../../utils/icons";
 import "./RecordList.css";
 
 export default function RecordList() {
@@ -61,8 +61,6 @@ function Record({ record, onDelete }: RecordProps) {
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setFormValues((prevState) => ({ ...prevState, category: e.target.value }));
     };
-
-    const currency = <FontAwesomeIcon className="record-currency-icon" icon={faEuroSign} />;
 
     const formatDateShort = (date: string) => {
         if (date === "now") return date;
@@ -220,7 +218,7 @@ function Record({ record, onDelete }: RecordProps) {
                 <div className="record-description">{record.description}</div>
                 <div className="record-amount">
                     {record.amount}
-                    {currency}
+                    {renderCurrencyIcon("record-currency-icon")}
                 </div>
                 <div className="record-created_at">{formatDateShort(record.created_at)}</div>
                 <div className="record-edit">

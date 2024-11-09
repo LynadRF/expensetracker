@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEuroSign, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useRecords } from "../../../contexts/recordContext";
 import { Categories } from "../../../types/enums";
 import requestAPI from "../../../api";
 import "./RecordEntry.css";
+import { renderCurrencyIcon } from "../../../utils/icons";
 
 export default function RecordEntry() {
     const { recordState, recordDispatch } = useRecords();
-    const currency = <FontAwesomeIcon className="recordentry-currency-icon" icon={faEuroSign} />;
     const [formValues, setFormValues] = useState({
         description: "",
         amount: 0,
@@ -68,7 +68,7 @@ export default function RecordEntry() {
                         placeholder="e.g. 600,00"
                         onChange={handleInputChange}
                     ></input>
-                    {currency}
+                    {renderCurrencyIcon("recordentry-currency-icon")}
                 </div>
                 <div className="recordentry-category">
                     <select className="recordentry-category-select" onChange={handleChange}>
