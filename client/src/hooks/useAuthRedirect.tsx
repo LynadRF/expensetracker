@@ -14,8 +14,8 @@ export default function useAuthRedirect(loggedIn: string = "", loggedOut: string
                 const result = await response.json();
                 if (response.ok) {
                     userDispatch({ type: "UPDATE", userInfo: result.data });
-                    navigate(loggedIn);
-                } else navigate(loggedOut);
+                    if (loggedIn) navigate(loggedIn); // if loggedIn = "" do not redirect
+                } else if (loggedOut) navigate(loggedOut);
             } catch (error) {
                 console.error("Error redirecting:", error);
             }

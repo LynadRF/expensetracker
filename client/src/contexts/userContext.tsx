@@ -5,6 +5,7 @@ type FormAction = { type: "UPDATE"; userInfo: UserInfo };
 type UserInfo = {
     email: string;
     username: string;
+    createdAt: string;
 };
 
 export function userReducer(state: UserInfo, action: FormAction): UserInfo {
@@ -16,7 +17,7 @@ export function userReducer(state: UserInfo, action: FormAction): UserInfo {
     }
 }
 
-const initialUserState: UserInfo = { email: "", username: "" };
+const initialUserState: UserInfo = { email: "", username: "", createdAt: "" };
 
 const UserContext = createContext<{ userState: UserInfo; userDispatch: (userDispatch: FormAction) => void }>({
     userState: initialUserState,

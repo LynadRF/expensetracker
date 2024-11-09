@@ -24,10 +24,10 @@ user.get("/authenticate", authenticateToken, async (_req, res) => {
     const db: Database = await getDb();
 
     // This is necessary
-    let data = { email: "", username: "" };
+    let data = { email: "", username: "", createdAt: "" };
     try {
         const user = await db.get("select * from users where id = :id", { ":id": accountId });
-        data = { email: user.email, username: user.username };
+        data = { email: user.email, username: user.username, createdAt: user.created_at };
     } catch (error) {
         console.error("Error creating user:", error);
         res.status(500).send({ error: "INTERNAL_SERVER_ERROR" });
@@ -120,7 +120,10 @@ user.post("/login", async (req, res) => {
             expires: new Date(Date.now() + 1800000),
         });
 
-        res.status(200).send({ message: "LOGIN && TOKEN_SET", data: { email: user.email, username: user.username } });
+        res.status(200).send({
+            message: "LOGIN && TOKEN_SET",
+            data: { email: user.email, username: user.username, createdAt: user.created_at },
+        });
         return;
     } catch (error) {
         console.error("Error logging in:", error);
