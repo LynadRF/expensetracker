@@ -24,7 +24,7 @@
 }
 
 .my-account-btn-red-hl:hover {
-    background: var(--color_red);
+    background-color: var(--color_red) !important;
 }
 
 .my-account-edit-btn {

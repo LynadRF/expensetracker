@@ -1,4 +1,3 @@
-import Cookies from "js-cookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faEuroSign,
@@ -14,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export function renderCurrencyIcon(className: string): JSX.Element {
-    const currency = Cookies.get("currency-symbol");
+    const currency = localStorage.getItem("currency-symbol");
     switch (currency) {
         case "Euro":
             return <FontAwesomeIcon className={className} icon={faEuroSign} />;

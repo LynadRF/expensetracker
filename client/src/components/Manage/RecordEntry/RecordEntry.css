@@ -79,7 +79,8 @@
     transition: 0.3s;
 }
 
-.recordentry-category-select:hover {
+.recordentry-category-select:hover,
+.recordentry-category-select:focus {
     background-color: var(--color_highlight_green);
 }
 

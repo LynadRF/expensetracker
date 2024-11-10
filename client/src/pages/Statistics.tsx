@@ -4,13 +4,11 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import Barplot from "../components/Statistics/Charts/BarPlot";
 import { parseRecord } from "../utils/parseData";
 import { useRecords } from "../contexts/recordContext";
-import useAuthRedirect from "../hooks/useAuthRedirect";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import DonutChart from "../components/Statistics/Charts/DonutChart";
 import "../styles/Statistics.css";
 
 export default function Statistics() {
-    useAuthRedirect("", "/login");
     const { recordState } = useRecords();
     const { height, width } = useWindowDimensions();
     const [plot, setPlot] = useState("bar");

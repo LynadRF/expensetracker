@@ -1,3 +1,7 @@
+.application-settings {
+    text-align: left;
+}
+
 .currency-container {
     text-align: left;
 }
@@ -13,4 +17,72 @@
 
 .currency-option {
     background-color: transparent;
+}
+
+.custom-categories-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.application-settings-h5 {
+    margin: 0 0 4px 0;
+}
+
+.custom-categories-add {
+    display: flex;
+}
+
+.add-custom-category-btn:hover {
+    background-color: var(--color_highlight_green) !important;
+}
+
+.custom-categories-input {
+    background-color: var(--color5);
+    border: 0;
+    border-radius: 4px;
+    padding: 0.5vh 8px;
+    font-size: max(14px, 1vw);
+}
+
+.custom-categories-li-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-categories-li {
+    list-style: none;
+    background-color: var(--color5);
+    border-radius: 5px;
+    padding: max(1vh, 5px) max(1vw, 10px);
+}
+
+.custom-category-ul-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.custom-categories-ul {
+    font-size: max(12px, 1vw);
+    padding: 0;
+    margin: 0;
+    line-break: anywhere;
+}
+
+.custom-categories-ul:not(:first-child) {
+    padding-top: max(1vh, 10px);
+}
+
+.custom-category-delete-btn {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    padding-left: max(1vw, 5px);
+    transition: 0.3s;
+}
+
+.custom-category-delete-btn:hover {
+    color: var(--color_red);
 }

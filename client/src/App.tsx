@@ -8,6 +8,7 @@ import Settings from "./pages/Settings";
 import Records from "./pages/Records";
 import { RecordContextProvider } from "./contexts/recordContext";
 import { UserContextProvider } from "./contexts/userContext";
+import ProtectedRoutes from "./utils/ProtectedRoutes";
 import "./App.css";
 
 function App() {
@@ -21,18 +22,19 @@ function App() {
                 <RecordContextProvider>
                     <BrowserRouter>
                         <Routes>
-                            <Route path="/" element={<Home />} />
                             <Route path="/register" element={<Register />} />
                             <Route path="/login" element={<Login />} />
-                            <Route path="/home" element={<Home />} />
-                            <Route path="/settings/*" element={<Settings />} />
 
-                            <Route path="/records" element={<Records />}>
-                                <Route index element={<Manage />} />
-                                <Route path="/records/manage" element={<Manage />} />
-                                <Route path="/records/statistics" element={<Statistics />} />
+                            <Route element={<ProtectedRoutes />}>
+                                <Route path="/" element={<Home />} />
+                                <Route path="/home" element={<Home />} />
+                                <Route path="/settings/*" element={<Settings />} />
+                                <Route path="/records" element={<Records />}>
+                                    <Route index element={<Manage />} />
+                                    <Route path="/records/manage" element={<Manage />} />
+                                    <Route path="/records/statistics" element={<Statistics />} />
+                                </Route>
                             </Route>
-
                             <Route path="/*" element={<NotFound />} />
                         </Routes>
                     </BrowserRouter>

@@ -1,8 +1,6 @@
 import Sidebar from "../components/Sidebar/Sidebar";
-import useAuthRedirect from "../hooks/useAuthRedirect";
 
 export default function Home() {
-    useAuthRedirect("", "/login");
     return (
         <>
             <Sidebar />

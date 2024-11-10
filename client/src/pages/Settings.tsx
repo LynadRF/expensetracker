@@ -1,13 +1,10 @@
 import { Link, Route, Routes } from "react-router-dom";
 import Sidebar from "../components/Sidebar/Sidebar";
-import useAuthRedirect from "../hooks/useAuthRedirect";
 import AccountSettings from "../components/Settings/AccountSettings/AccountSettings";
 import ApplicationSettings from "../components/Settings/ApplicationSettings/ApplicationSettings";
 import "../styles/Settings.css";
 
 export default function Settings() {
-    useAuthRedirect("", "/login");
-
     return (
         <>
             <Sidebar />
