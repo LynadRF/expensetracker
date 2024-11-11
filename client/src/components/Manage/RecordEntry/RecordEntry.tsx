@@ -2,10 +2,9 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useRecords } from "../../../contexts/recordContext";
-import { Categories } from "../../../types/enums";
 import requestAPI from "../../../api";
 import "./RecordEntry.css";
-import { renderCurrencyIcon } from "../../../utils/icons";
+import { renderCategoryOptions, renderCurrencyIcon } from "../../../utils/renderHelpers";
 
 export default function RecordEntry() {
     const { recordState, recordDispatch } = useRecords();
@@ -72,13 +71,7 @@ export default function RecordEntry() {
                 </div>
                 <div className="recordentry-category">
                     <select className="recordentry-category-select" onChange={handleChange}>
-                        {Object.values(Categories)
-                            .filter((key) => isNaN(Number(key)))
-                            .map((item, index) => (
-                                <option className="recordentry-category-option" key={index} value={item}>
-                                    {item}
-                                </option>
-                            ))}
+                        {renderCategoryOptions({ className: "recordentry-category-option" })}
                     </select>
                 </div>
                 <div className="recordentry-add">

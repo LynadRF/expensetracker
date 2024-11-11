@@ -15,11 +15,10 @@ import {
     faFileSignature,
 } from "@fortawesome/free-solid-svg-icons";
 import { RecordItem } from "../../../types/types";
-import { Categories } from "../../../types/enums";
 import { useRecords } from "../../../contexts/recordContext";
 import Modal from "../../Modal/Modal";
 import requestAPI from "../../../api";
-import { renderCurrencyIcon } from "../../../utils/icons";
+import { renderCategoryOptions, renderCurrencyIcon } from "../../../utils/renderHelpers";
 import "./RecordList.css";
 
 export default function RecordList() {
@@ -115,6 +114,7 @@ function Record({ record, onDelete }: RecordProps) {
                 record.description = formValues.description;
                 record.amount = formValues.amount;
                 record.category = formValues.category;
+                setIsOpen(false);
             }
         };
         fetch();
@@ -172,23 +172,10 @@ function Record({ record, onDelete }: RecordProps) {
                                 <div className="record-modal-col">
                                     <p className="record-modal-p">Category:</p>
                                     <select className="recordentry-category-select" onChange={handleChange}>
-                                        {Object.values(Categories)
-                                            .filter((key) => isNaN(Number(key)))
-                                            .map((item, index) => (
-                                                <option
-                                                    className="recordentry-category-option"
-                                                    key={index}
-                                                    value={item}
-                                                    selected={item === record.category ? true : false}
-                                                    style={
-                                                        item === record.category
-                                                            ? { fontWeight: "bold", color: "var(--color_red)" }
-                                                            : {}
-                                                    }
-                                                >
-                                                    {item}
-                                                </option>
-                                            ))}
+                                        {renderCategoryOptions({
+                                            className: "recordentry-category-option",
+                                            selected: `${record.category}`,
+                                        })}
                                     </select>
                                 </div>
                                 <div>

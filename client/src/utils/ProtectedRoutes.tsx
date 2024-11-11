@@ -25,7 +25,6 @@ export default function ProtectedRoutes() {
                 .map((record) => record.category)
                 .filter((category) => !Object.values(Categories).includes(category))
                 .forEach((category) => {
-                    console.log(category);
                     customCategories.push(category);
                 });
 

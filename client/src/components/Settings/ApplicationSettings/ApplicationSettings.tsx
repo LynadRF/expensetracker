@@ -20,7 +20,7 @@ export default function ApplicationSettings() {
     const handleAddCustomCategory = () => {
         if (newCategoryName && !customCategories.includes(newCategoryName)) {
             setCustomCategories([...customCategories, newCategoryName]);
-            localStorage.setItem("custom-categories", JSON.stringify(customCategories));
+            localStorage.setItem("custom-categories", JSON.stringify([...customCategories, newCategoryName]));
         }
     };
 
@@ -92,16 +92,16 @@ export default function ApplicationSettings() {
                             Add
                         </button>
                     </div>
-                    {customCategories ? (
+                    {customCategories.length > 0 ? (
                         <>{renderCustomCategories()}</>
                     ) : (
                         <>
-                            <p style={{ margin: "0", fontSize: "max(1vw, 10px)" }}>
+                            <h5 className="application-settings-h5" style={{ marginTop: "1vh" }}>
+                                Your custom categories:
+                            </h5>
+                            <p style={{ margin: "max(1vh,5px) 0", fontSize: "max(0.8vw, 10px)" }}>
                                 You haven't added any custom categories
                             </p>
-                            <button className="settings-btn" style={{ marginLeft: "2vw" }}>
-                                Add
-                            </button>
                         </>
                     )}
                 </div>

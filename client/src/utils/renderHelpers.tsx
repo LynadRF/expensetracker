@@ -11,6 +11,7 @@ import {
     faPesoSign,
     faRubleSign,
 } from "@fortawesome/free-solid-svg-icons";
+import { Categories } from "../types/enums";
 
 export function renderCurrencyIcon(className: string): JSX.Element {
     const currency = localStorage.getItem("currency-symbol");
@@ -38,4 +39,40 @@ export function renderCurrencyIcon(className: string): JSX.Element {
         default:
             return <FontAwesomeIcon className={className} icon={faEuroSign} />;
     }
+}
+
+type RenderCategoryOptionsProps = {
+    className?: string;
+    style?: React.CSSProperties;
+    selected?: string;
+};
+
+export function renderCategoryOptions({ className, style, selected }: RenderCategoryOptionsProps): JSX.Element[] {
+    const categoryStorage: string = localStorage.getItem("custom-categories") || "[]";
+    const customCategories: string[] = JSON.parse(categoryStorage);
+    const totalCategories: JSX.Element[] = [];
+
+    // push defaultCategories
+    Object.values(Categories)
+        .filter((key) => isNaN(Number(key)))
+        .map((item, index) =>
+            totalCategories.push(
+                <option key={index} value={item} className={className} style={style} selected={item === selected}>
+                    {item}
+                </option>
+            )
+        );
+
+    // push customCategories
+    Object.values(customCategories)
+        .filter((key) => isNaN(Number(key)))
+        .map((item, index) =>
+            totalCategories.push(
+                <option key={index} value={item} className={className} style={style} selected={item === selected}>
+                    {item}
+                </option>
+            )
+        );
+
+    return totalCategories;
 }
