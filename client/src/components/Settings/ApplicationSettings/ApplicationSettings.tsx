@@ -69,7 +69,11 @@ export default function ApplicationSettings() {
                                 </option>
                             ))}
                     </select>
-                    <button className="settings-btn" style={{ marginLeft: "2vw" }} onClick={setCurrencyLocalStorage}>
+                    <button
+                        className="settings-btn settings-btn-hover-blue"
+                        style={{ marginLeft: "2vw" }}
+                        onClick={setCurrencyLocalStorage}
+                    >
                         Confirm
                     </button>
                 </div>
@@ -86,7 +90,7 @@ export default function ApplicationSettings() {
                         />
                         <button
                             onClick={handleAddCustomCategory}
-                            className="settings-btn add-custom-category-btn"
+                            className="settings-btn settings-btn-hover-green"
                             style={{ marginLeft: "2vw" }}
                         >
                             Add

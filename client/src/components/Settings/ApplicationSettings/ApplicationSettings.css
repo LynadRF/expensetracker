@@ -33,10 +33,6 @@
     display: flex;
 }
 
-.add-custom-category-btn:hover {
-    background-color: var(--color_highlight_green) !important;
-}
-
 .custom-categories-input {
     background-color: var(--color5);
     border: 0;

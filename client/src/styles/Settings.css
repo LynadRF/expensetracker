@@ -56,6 +56,14 @@
     transition: 0.3s;
 }
 
-.settings-btn:hover {
+.settings-btn-hover-blue:hover {
     background-color: var(--color_highlight_blue);
+}
+
+.settings-btn-hover-green:hover {
+    background-color: var(--color_highlight_green);
+}
+
+.settings-btn-hover-red:hover {
+    background-color: var(--color_red);
 }

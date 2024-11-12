@@ -56,3 +56,33 @@
 .password-settings-container > button:last-child {
     margin-top: max(2vh, 10px);
 }
+
+.account-settings-modal-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.account-settings-btn-div {
+    display: flex;
+    flex-direction: column;
+    padding: 1vh 0;
+}
+
+.account-settings-btn-div button:not(:first-child) {
+    margin-top: max(0.75vh, 2px);
+}
+
+.account-settings-label {
+    font-size: max(12px, 0.8vw);
+    font-weight: 600;
+    color: var(--color5);
+    text-align: left;
+}
+
+.account-settings-input {
+    background-color: var(--color5);
+    border: 0;
+    border-radius: 4px;
+    padding: 0.5vh 8px;
+    font-size: max(12px, 0.9vw);
+}
