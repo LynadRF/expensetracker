@@ -68,7 +68,13 @@ export function renderCategoryOptions({ className, style, selected }: RenderCate
         .filter((key) => isNaN(Number(key)))
         .map((item, index) =>
             totalCategories.push(
-                <option key={index} value={item} className={className} style={style} selected={item === selected}>
+                <option
+                    key={index + Object.keys(Categories).length - 1}
+                    value={item}
+                    className={className}
+                    style={style}
+                    selected={item === selected}
+                >
                     {item}
                 </option>
             )

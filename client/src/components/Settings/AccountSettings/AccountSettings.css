@@ -80,8 +80,9 @@
 }
 
 .account-settings-input {
-    background-color: var(--color5);
+    background-color: var(--color4);
     border: 0;
+    color: inherit;
     border-radius: 4px;
     padding: 0.5vh 8px;
     font-size: max(12px, 0.9vw);

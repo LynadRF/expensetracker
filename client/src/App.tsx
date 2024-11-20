@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
 import Manage from "./pages/Manage";
 import Statistics from "./pages/Statistics";
 import Settings from "./pages/Settings";
@@ -26,8 +26,8 @@ function App() {
                             <Route path="/login" element={<Login />} />
 
                             <Route element={<ProtectedRoutes />}>
-                                <Route path="/" element={<Home />} />
-                                <Route path="/home" element={<Home />} />
+                                <Route path="/" element={<Dashboard />} />
+                                <Route path="/dashboard" element={<Dashboard />} />
                                 <Route path="/settings/*" element={<Settings />} />
                                 <Route path="/records" element={<Records />}>
                                     <Route index element={<Manage />} />

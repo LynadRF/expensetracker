@@ -171,7 +171,11 @@ function Record({ record, onDelete }: RecordProps) {
                                 </div>
                                 <div className="record-modal-col">
                                     <p className="record-modal-p">Category:</p>
-                                    <select className="recordentry-category-select" onChange={handleChange}>
+                                    <select
+                                        className="recordentry-category-select"
+                                        onChange={handleChange}
+                                        style={{ fontSize: "max(12px, 1vw)" }}
+                                    >
                                         {renderCategoryOptions({
                                             className: "recordentry-category-option",
                                             selected: `${record.category}`,

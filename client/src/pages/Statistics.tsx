@@ -7,11 +7,12 @@ import { useRecords } from "../contexts/recordContext";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import DonutChart from "../components/Statistics/Charts/DonutChart";
 import "../styles/Statistics.css";
+import { Lollipop } from "../components/Statistics/Charts/Lollipop";
 
 export default function Statistics() {
     const { recordState } = useRecords();
     const { height, width } = useWindowDimensions();
-    const [plot, setPlot] = useState("bar");
+    const [plot, setPlot] = useState("lollipop");
 
     const renderStatistics = (plot: string) => {
         switch (plot) {
@@ -19,6 +20,8 @@ export default function Statistics() {
                 return <Barplot width={width * 0.8} height={height * 0.7} data={parseRecord(recordState)} />;
             case "donut":
                 return <DonutChart width={width * 0.8} height={height * 0.7} data={parseRecord(recordState)} />;
+            case "lollipop":
+                return <Lollipop width={width * 0.8} height={height * 0.7} data={parseRecord(recordState)} />;
         }
     };
 
@@ -26,7 +29,6 @@ export default function Statistics() {
         <>
             <Sidebar />
             <main>
-                <h2>Some charts may not work on mobile!</h2>
                 <h1>Statistics</h1>
                 <Filter />
                 <div className="statistics-filter-container">
