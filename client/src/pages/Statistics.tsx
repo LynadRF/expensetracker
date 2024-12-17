@@ -1,27 +1,28 @@
 import { useState } from "react";
 import Filter from "../components/Filter/Filter";
 import Sidebar from "../components/Sidebar/Sidebar";
-import Barplot from "../components/Statistics/Charts/BarPlot";
-import { parseRecord } from "../utils/parseData";
 import { useRecords } from "../contexts/recordContext";
 import useWindowDimensions from "../hooks/useWindowDimensions";
-import DonutChart from "../components/Statistics/Charts/DonutChart";
+import SimpleLineChart from "../components/Statistics/Charts/SimpleLineChart";
+import { RecordSortOptions } from "../types/types";
+import SimpleBarChart from "../components/Statistics/Charts/SimpleBarChart";
 import "../styles/Statistics.css";
-import { Lollipop } from "../components/Statistics/Charts/Lollipop";
 
 export default function Statistics() {
-    const { recordState } = useRecords();
+    const { recordState, getFilteredRecords, getSortedRecords } = useRecords();
     const { height, width } = useWindowDimensions();
-    const [plot, setPlot] = useState("lollipop");
+    const [plot, setPlot] = useState("barchart");
+    const [sort, setSort] = useState<RecordSortOptions>({ by: "month" });
+    const plotData = getSortedRecords(sort, getFilteredRecords({ from: "01/2023", to: "12/2024" }));
 
     const renderStatistics = (plot: string) => {
         switch (plot) {
-            case "bar":
-                return <Barplot width={width * 0.8} height={height * 0.7} data={parseRecord(recordState)} />;
-            case "donut":
-                return <DonutChart width={width * 0.8} height={height * 0.7} data={parseRecord(recordState)} />;
-            case "lollipop":
-                return <Lollipop width={width * 0.8} height={height * 0.7} data={parseRecord(recordState)} />;
+            case "linechart":
+                return <SimpleLineChart width={width * 0.8} height={height * 0.7} data={plotData} />;
+            case "barchart":
+                return <SimpleBarChart width={width * 0.8} height={height * 0.7} data={plotData} />;
+            default:
+                return null;
         }
     };
 
@@ -35,18 +36,18 @@ export default function Statistics() {
                     <button
                         className="statistics-filter-btn"
                         onClick={() => {
-                            setPlot("bar");
+                            setPlot("linechart");
                         }}
                     >
-                        Barplot
+                        LineChart
                     </button>
                     <button
                         className="statistics-filter-btn"
                         onClick={() => {
-                            setPlot("donut");
+                            setPlot("barchart");
                         }}
                     >
-                        DonutChart
+                        BarChart
                     </button>
                 </div>
                 <div className="statistics-container">

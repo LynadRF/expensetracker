@@ -1,35 +1,27 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faPenToSquare,
-    faHouse,
-    faPlug,
-    faCartShopping,
-    faUtensils,
-    faPaw,
-    faIcons,
-    faC,
-    faGem,
-    faRoad,
-    faFileSignature,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { RecordItem } from "../../../types/types";
 import { useRecords } from "../../../contexts/recordContext";
 import Modal from "../../Modal/Modal";
 import requestAPI from "../../../api";
-import { renderCategoryOptions, renderCurrencyIcon } from "../../../utils/renderHelpers";
+import { renderCategoryItems, renderCategoryOptions, renderCurrencyIcon } from "../../../utils/renderHelpers";
 import "./RecordList.css";
 
-export default function RecordList() {
-    const { recordState, recordDispatch } = useRecords();
+type RecordListProps = {
+    records: RecordItem[];
+}
+
+export default function RecordList({ records }: RecordListProps) {
+    const { recordDispatch } = useRecords();
 
     const handleDeleteRecord = (recordId: number): void => {
-        recordDispatch({ type: "UPDATE", records: recordState.filter((record) => record.id !== recordId) });
+        recordDispatch({ type: "UPDATE", records: records.filter((record) => record.id !== recordId) });
     };
 
     const renderRecords = () => {
-        return recordState.map((record) => <Record record={record} onDelete={handleDeleteRecord} key={record.id} />);
+        return records.map((record) => <Record record={record} onDelete={handleDeleteRecord} key={record.id} />);
     };
 
     return (
@@ -73,31 +65,6 @@ function Record({ record, onDelete }: RecordProps) {
         let result = "";
         result += date.slice(11, 16) + " UTC - " + date.slice(8, 10) + "/" + date.slice(5, 7) + "/" + date.slice(0, 4);
         return result;
-    };
-
-    const renderCategoryItems = (category: string): JSX.Element => {
-        switch (category) {
-            case "Rent":
-                return <FontAwesomeIcon icon={faFileSignature} />;
-            case "Home":
-                return <FontAwesomeIcon icon={faHouse} />;
-            case "Utilities":
-                return <FontAwesomeIcon icon={faPlug} />;
-            case "Transport":
-                return <FontAwesomeIcon icon={faRoad} />;
-            case "Groceries":
-                return <FontAwesomeIcon icon={faCartShopping} />;
-            case "Dining":
-                return <FontAwesomeIcon icon={faUtensils} />;
-            case "Leisure":
-                return <FontAwesomeIcon icon={faIcons} />;
-            case "Pets":
-                return <FontAwesomeIcon icon={faPaw} />;
-            case "Other":
-                return <FontAwesomeIcon icon={faGem} />;
-            default:
-                return <FontAwesomeIcon icon={faC} />;
-        }
     };
 
     const submitEdit = () => {

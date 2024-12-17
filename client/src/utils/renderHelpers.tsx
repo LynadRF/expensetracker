@@ -10,10 +10,20 @@ import {
     faLiraSign,
     faPesoSign,
     faRubleSign,
+    faHouse,
+    faPlug,
+    faCartShopping,
+    faUtensils,
+    faPaw,
+    faIcons,
+    faC,
+    faGem,
+    faRoad,
+    faFileSignature,
 } from "@fortawesome/free-solid-svg-icons";
 import { Categories } from "../types/enums";
 
-export function renderCurrencyIcon(className: string): JSX.Element {
+export function renderCurrencyIcon(className?: string): JSX.Element {
     const currency = localStorage.getItem("currency-symbol");
     switch (currency) {
         case "Euro":
@@ -38,6 +48,31 @@ export function renderCurrencyIcon(className: string): JSX.Element {
             return <FontAwesomeIcon className={className} icon={faRubleSign} />;
         default:
             return <FontAwesomeIcon className={className} icon={faEuroSign} />;
+    }
+}
+
+export function renderCategoryItems(category: string): JSX.Element {
+    switch (category) {
+        case "Rent":
+            return <FontAwesomeIcon icon={faFileSignature} />;
+        case "Home":
+            return <FontAwesomeIcon icon={faHouse} />;
+        case "Utilities":
+            return <FontAwesomeIcon icon={faPlug} />;
+        case "Transport":
+            return <FontAwesomeIcon icon={faRoad} />;
+        case "Groceries":
+            return <FontAwesomeIcon icon={faCartShopping} />;
+        case "Dining":
+            return <FontAwesomeIcon icon={faUtensils} />;
+        case "Leisure":
+            return <FontAwesomeIcon icon={faIcons} />;
+        case "Pets":
+            return <FontAwesomeIcon icon={faPaw} />;
+        case "Other":
+            return <FontAwesomeIcon icon={faGem} />;
+        default:
+            return <FontAwesomeIcon icon={faC} />;
     }
 }
 

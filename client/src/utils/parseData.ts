@@ -17,7 +17,17 @@ export function parseDate(date: string, resolutionDate: "start" | "end" = "start
     const parts: string[] = date.split("/");
     date.replace("/", "-");
 
-    switch (date.length) {
+    let offset = 0;
+
+    // If day or month is 1 -> 01
+    for (let i = 0; i < parts.length - 1; i++) {
+        if (parts[i].length === 1) {
+            parts[i] = "0" + parts[i];
+            offset++;
+        }
+    }
+
+    switch (date.length + offset) {
         case 4: // YYYY
             if (resolutionDate === "start") return date + "-01-01";
             else return date + "-12-31";
@@ -32,6 +42,6 @@ export function parseDate(date: string, resolutionDate: "start" | "end" = "start
         case 10: // DD/MM/YYYY
             return parts[2] + "-" + parts[1] + "-" + parts[0];
         default:
-            return "";
+            return date;
     }
 }

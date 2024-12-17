@@ -1,3 +1,13 @@
+export type RecordSortOptions = {
+    by: "category" | "month" | "year";
+};
+
+export type RecordFilterOptions = {
+    from: string;
+    to: string;
+    amount?: number;
+};
+
 export type RecordItem = {
     id: number;
     description: string;

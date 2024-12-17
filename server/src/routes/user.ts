@@ -62,7 +62,7 @@ user.post("/register", async (req, res) => {
     try {
         const hashedPassword: string = await bcrypt.hash(password, 10);
         const insertion = await db.run(
-            "insert into users (email, username, password, created_at) values (:email, :username, :password, datetime('now'))",
+            "insert into users (email, username, password, created_at) values (:email, :username, :password, date('now'))",
             {
                 ":email": email,
                 ":username": username,
@@ -281,7 +281,7 @@ user.delete("/delete", authenticateToken, async (req, res) => {
             ":accountId": accountId,
         });
 
-        const recordDeletion = await db.run("delete from records where userId = :accountId", {
+        const recordDeletion = await db.run("delete from records where user_id = :accountId", {
             ":accountId": accountId,
         });
 

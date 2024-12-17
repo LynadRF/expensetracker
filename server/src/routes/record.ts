@@ -27,12 +27,12 @@ record.post("/add", async (req, res) => {
 
     try {
         const insertion = await db.run(
-            "insert into records (description, amount, category, userId, created_at) values (:description, :amount, :category, :userId, datetime('now'))",
+            "insert into records (description, amount, category, user_id, created_at) values (:description, :amount, :category, :user_id, date('now'))",
             {
                 ":description": data.description,
                 ":amount": data.amount,
                 ":category": data.category,
-                ":userId": accountId,
+                ":user_id": accountId,
             }
         );
         console.log("Created record:", insertion);
@@ -54,7 +54,7 @@ record.post("/records", async (req, res) => {
     if (!filter.limit) filter.limit = 9999;
 
     const queryString: string =
-        "select id, description, amount, category, created_at from records where userId = :accountId and created_at >= DATE(:from) and created_at <= DATE(:to) order by created_at desc limit :limit";
+        "select id, description, amount, category, created_at from records where user_id = :accountId and created_at >= DATE(:from) and created_at <= DATE(:to) order by created_at desc limit :limit";
 
     const db: Database = await getDb();
 
@@ -87,13 +87,13 @@ record.post("/edit", async (req, res) => {
 
     try {
         const update = await db.run(
-            "update records set description = :newDescription, amount = :newAmount, category = :newCategory where id = :id and userId = :userId",
+            "update records set description = :newDescription, amount = :newAmount, category = :newCategory where id = :id and user_id = :user_id",
             {
                 ":newDescription": newDescription,
                 ":newAmount": newAmount,
                 ":newCategory": newCategory,
                 ":id": id,
-                ":userId": accountId,
+                ":user_id": accountId,
             }
         );
         console.log("Updated record:", update);
@@ -118,9 +118,9 @@ record.delete("/delete/:id", async (req, res) => {
     const db: Database = await getDb();
 
     try {
-        const deletion = await db.run("delete from records where id = :id and userId = :userId", {
+        const deletion = await db.run("delete from records where id = :id and user_id = :user_id", {
             ":id": id,
-            ":userId": accountId,
+            ":user_id": accountId,
         });
         console.log("Deleted record:", deletion);
         res.status(200).send({ message: "DELETED_RECORD" });
