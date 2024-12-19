@@ -1,17 +1,6 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 import { RecordFilterOptions, RecordSortOptions, DataItem, RecordItem } from "../types/types";
-import { parseDate } from "../utils/parseData";
-
-type FormAction = { type: "UPDATE"; records: RecordItem[] };
-
-export function recordReducer(state: RecordItem[], action: FormAction): RecordItem[] {
-    switch (action.type) {
-        case "UPDATE":
-            return action.records;
-        default:
-            return state;
-    }
-}
+import { recordReducer, RecordReducerAction } from "../reducers/recordReducer";
 
 function sortRecords(records: RecordItem[], sortOptions: RecordSortOptions): DataItem[] {
     const hashmap: Map<string, number> = new Map<string, number>();
@@ -66,58 +55,65 @@ function filterRecords(records: RecordItem[], filterOptions: RecordFilterOptions
     return result;
 }
 
-function isDateInRange(from: string, to: string, unformattedDate: string): boolean {
-    // formattedDates are of format YYYY/MM/DD => [0] === YYYY, [1] === MM, [2] === DD
-    const formattedFrom: string[] = parseDate(from, "start").split("-");
-    const formattedTo: string[] = parseDate(to, "end").split("-");
-    const formattedDate: string[] = unformattedDate.slice(0, 10).split("-");
+// All dates should be of format YYYY-MM-DD
+function isDateInRange(from: string, to: string, date: string): boolean {
+    if (from.length !== 10 || to.length !== 10 || date.length !== 100) return false;
 
-    /*
+    const formattedFrom: string[] = from.split("-");
+    const formattedTo: string[] = to.split("-");
+    const formattedDate: string[] = date.split("-");
+
     for (let i = 0; i <= 2; i++) {
         if (formattedDate[i] < formattedFrom[i] || formattedDate[i] > formattedTo[i]) return false;
         if (formattedDate[i] > formattedFrom[i] && formattedDate[i] < formattedTo[i]) return true;
     }
-    */
 
-    if (formattedDate[0] < formattedFrom[0] || formattedDate[0] > formattedTo[0]) return false; // Year outside of year-range => always false
-    if (formattedDate[0] > formattedFrom[0] && formattedDate[0] < formattedTo[0]) return true; // Year inside of year-range => always true no matter the month/day filter
-    // All cases with fromYear === isYear === toYear
-    if (formattedDate[1] < formattedFrom[1] || formattedDate[1] > formattedTo[1]) return false; // Month outside of month-range => always false
-    if (formattedDate[1] > formattedFrom[1] && formattedDate[1] < formattedTo[1]) return true; // Month inside of month-range => always true no matter the day filter
-    // All cases with fromMonth === isMonth === toMonth
-    if (formattedDate[2] < formattedFrom[2] || formattedDate[2] > formattedTo[2]) return false; // Day outside of day-range => always false
-    if (formattedDate[2] > formattedFrom[2] && formattedDate[2] < formattedTo[2]) return true; // Day inside of day-range => always true
-
-    return true; // isDay === fromDay or isDay === toDay => we count it as true
+    return true;
 }
 
-const initialRecordState: RecordItem[] = [];
-
 const RecordContext = createContext<{
+    // recordReducer
     recordState: RecordItem[];
-    recordDispatch: (recordDispatch: FormAction) => void;
+    recordDispatch: (recordDispatch: RecordReducerAction) => void;
+    // others
+    allRecordsState: RecordItem[];
+    setAllRecordsState: React.Dispatch<React.SetStateAction<RecordItem[]>>;
     getFilteredRecords: (filterOptions: RecordFilterOptions, records?: RecordItem[]) => RecordItem[];
     getSortedRecords: (sortOptions: RecordSortOptions, records?: RecordItem[]) => DataItem[];
 }>({
-    recordState: initialRecordState,
+    // recordReducer
+    recordState: [],
     recordDispatch: () => null,
+    // others
+    allRecordsState: [],
+    setAllRecordsState: () => [],
     getFilteredRecords: () => [],
     getSortedRecords: () => [],
 });
 
 export function RecordContextProvider({ children }: RecordContextProviderProps) {
-    const [recordState, recordDispatch] = useReducer(recordReducer, initialRecordState);
+    const [recordState, recordDispatch] = useReducer(recordReducer, []);
+    const [allRecordsState, setAllRecordsState] = useState<RecordItem[]>([]);
 
     const getFilteredRecords = (filterOptions: RecordFilterOptions, records?: RecordItem[]): RecordItem[] => {
-        return filterRecords(records ? records : recordState, filterOptions);
+        return filterRecords(records ? records : allRecordsState, filterOptions);
     };
 
     const getSortedRecords = (sortOptions: RecordSortOptions, records?: RecordItem[]): DataItem[] => {
-        return sortRecords(records ? records : recordState, sortOptions);
+        return sortRecords(records ? records : allRecordsState, sortOptions);
     };
 
     return (
-        <RecordContext.Provider value={{ recordState, recordDispatch, getFilteredRecords, getSortedRecords }}>
+        <RecordContext.Provider
+            value={{
+                allRecordsState,
+                setAllRecordsState,
+                recordState,
+                recordDispatch,
+                getFilteredRecords,
+                getSortedRecords,
+            }}
+        >
             {children}
         </RecordContext.Provider>
     );

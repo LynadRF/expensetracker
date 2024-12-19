@@ -6,7 +6,7 @@
     margin: max(1vh, 10px) 4vw;
 }
 
-.filter-input {
+.filter-input-date {
     width: max(10vw, 50px);
     border: 2px solid var(--color3);
     border-radius: 10px;
@@ -16,6 +16,8 @@
     color: var(--color4);
     font-weight: bold;
     font-size: max(10px, 0.8vw);
+
+    color-scheme: light;
 }
 
 .filter-button {

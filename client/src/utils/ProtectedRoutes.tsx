@@ -7,18 +7,23 @@ import useAuthRedirect from "../hooks/useAuthRedirect";
 
 export default function ProtectedRoutes() {
     useAuthRedirect("", "/login");
-    const { recordState, recordDispatch } = useRecords();
+    const { allRecordsState, setAllRecordsState, recordState, recordDispatch } = useRecords();
+
     const categoriesLocalStorage = localStorage.getItem("custom-categories");
 
     useEffect(() => {
         const fetchRecords = async () => {
             const response = await requestAPI("POST", "/record/records");
             const result = await response.json();
-            if (response.ok) recordDispatch({ type: "UPDATE", records: result.data });
+            if (response.ok) {
+                setAllRecordsState(result.data);
+                if (recordState.length === 0) recordDispatch({ type: "UPDATE", records: result.data });
+            }
         };
 
-        if (recordState.length === 0) fetchRecords();
+        if (allRecordsState.length === 0) fetchRecords();
 
+        // If the users cookies for "custom-categories" do not exist, then add all custom categories, that the user already has entries for, as a cookie
         if (!categoriesLocalStorage) {
             const customCategories: string[] = [];
             recordState
@@ -31,7 +36,7 @@ export default function ProtectedRoutes() {
             if (customCategories && customCategories.length > 0)
                 localStorage.setItem("custom-categories", JSON.stringify(customCategories));
         }
-    }, [recordState, recordDispatch, categoriesLocalStorage]);
+    }, [allRecordsState, setAllRecordsState, recordState, recordDispatch, categoriesLocalStorage]);
 
     return <Outlet />;
 }

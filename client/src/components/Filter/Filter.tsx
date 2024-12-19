@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useRecords } from "../../contexts/recordContext";
-import { parseDate } from "../../utils/parseData";
 import requestAPI from "../../api";
 import "./Filter.css";
 
@@ -15,8 +14,8 @@ export default function Filter() {
     const applyFilter = () => {
         const fetch = async () => {
             const response = await requestAPI("POST", "/record/records", {
-                from: parseDate(formValues.from, "start"),
-                to: parseDate(formValues.to, "end"),
+                from: formValues.from,
+                to: formValues.to,
                 limit: 9999,
             });
             const result = await response.json();
@@ -42,32 +41,9 @@ export default function Filter() {
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-
-        // Remove any characters that are not digits or slashes
-        const formattedValue = value.replace(/[^0-9/]/g, "");
-
-        // Split by slashes to apply further restrictions
-        const parts = formattedValue.split("/");
-
-        // Apply restrictions to each part of the date
-        switch (parts.length) {
-            case 3: // DD/MM/YYYY
-                if (parts[0].length > 2 || parts[1].length > 2 || parts[2].length > 4) return;
-                break;
-            case 2: // MM/YYYY
-                if (parts[0].length > 2 || parts[1].length > 4) return;
-                break;
-            case 1: // YYYY
-                if (parts[0].length > 4) return;
-                break;
-            default:
-                return;
-        }
-
-        // Update form values
         setFormValues((prevValues) => ({
             ...prevValues,
-            [name]: formattedValue,
+            [name]: value,
         }));
     };
 
@@ -77,27 +53,21 @@ export default function Filter() {
                 <div className="filter-child">
                     <p className="filter-p">From:</p>
                     <input
-                        className="filter-input"
-                        type="text"
+                        type="date"
+                        className="filter-input-date"
                         name="from"
                         value={formValues.from}
                         onChange={handleInputChange}
-                        placeholder="e.g. DD/MM/YYYY or MM/YYYY"
-                        pattern="^(?:(\d{2})\/)?(\d{2})\/(\d{4})|(\d{4})$"
-                        title="Please enter a date in DD/MM/YYYY, MM/YYYY, or YYYY format"
                     />
                 </div>
                 <div className="filter-child">
                     <p className="filter-p">To:</p>
                     <input
-                        className="filter-input"
-                        type="text"
+                        type="date"
+                        className="filter-input-date"
                         name="to"
                         value={formValues.to}
                         onChange={handleInputChange}
-                        placeholder="e.g. DD/MM/YYYY or MM/YYYY"
-                        pattern="^(?:(\d{2})\/)?(\d{2})\/(\d{4})|(\d{4})$"
-                        title="Please enter a date in DD/MM/YYYY, MM/YYYY, or YYYY format"
                     />
                 </div>
                 <div className="filter-child">

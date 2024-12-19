@@ -1,25 +1,9 @@
 import { createContext, useContext, useReducer } from "react";
-
-type FormAction = { type: "UPDATE"; userInfo: UserInfo };
-
-type UserInfo = {
-    email: string;
-    username: string;
-    createdAt: string;
-};
-
-export function userReducer(state: UserInfo, action: FormAction): UserInfo {
-    switch (action.type as string) {
-        case "UPDATE":
-            return action.userInfo;
-        default:
-            return state;
-    }
-}
+import { UserInfo, UserReducerAction, userReducer } from "../reducers/userReducer";
 
 const initialUserState: UserInfo = { email: "", username: "", createdAt: "" };
 
-const UserContext = createContext<{ userState: UserInfo; userDispatch: (userDispatch: FormAction) => void }>({
+const UserContext = createContext<{ userState: UserInfo; userDispatch: (userDispatch: UserReducerAction) => void }>({
     userState: initialUserState,
     userDispatch: () => null,
 });
