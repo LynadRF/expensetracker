@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useRecords } from "../../contexts/recordContext";
-import requestAPI from "../../api";
 import "./Filter.css";
 
 export default function Filter() {
-    const { recordDispatch } = useRecords();
+    const { allRecordsState, filterRecords, recordDispatch } = useRecords();
 
     const [formValues, setFormValues] = useState({
         from: "",
@@ -12,31 +11,11 @@ export default function Filter() {
     });
 
     const applyFilter = () => {
-        const fetch = async () => {
-            const response = await requestAPI("POST", "/record/records", {
-                from: formValues.from,
-                to: formValues.to,
-                limit: 9999,
-            });
-            const result = await response.json();
-            console.log(result);
-            if (response.ok) {
-                recordDispatch({ type: "UPDATE", records: result.data });
-            }
-        };
-        fetch();
+        filterRecords(formValues);
     };
 
     const resetFilter = () => {
-        const fetch = async () => {
-            const response = await requestAPI("POST", "/record/records");
-            const result = await response.json();
-            console.log(result);
-            if (response.ok) {
-                recordDispatch({ type: "UPDATE", records: result.data });
-            }
-        };
-        fetch();
+        recordDispatch({ type: "UPDATE", records: allRecordsState });
     };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

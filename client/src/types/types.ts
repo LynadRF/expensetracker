@@ -5,7 +5,7 @@ export type RecordSortOptions = {
 export type RecordFilterOptions = {
     from: string;
     to: string;
-    amount?: number;
+    limit?: number;
 };
 
 export type RecordItem = {

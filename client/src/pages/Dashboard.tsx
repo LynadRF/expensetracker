@@ -6,13 +6,13 @@ import { DataItem, RecordFilterOptions, RecordSortOptions } from "../types/types
 import "../styles/Dashboard.css";
 
 export default function Dashboard() {
-    const { getFilteredRecords, getSortedRecords } = useRecords();
+    const { recordState, getSortedRecords } = useRecords();
     const { height, width } = useWindowDimensions();
     const today: Date = new Date();
     const lastYear: number = today.getFullYear() - 1;
     const sortOptions: RecordSortOptions = { by: "month" };
     const filterOptions: RecordFilterOptions = setDefaultFilterOptions();
-    const chartData: DataItem[] = getSortedRecords(sortOptions, getFilteredRecords(filterOptions));
+    const chartData: DataItem[] = getSortedRecords(sortOptions, recordState);
 
     function setDefaultFilterOptions(): RecordFilterOptions {
         if (width > 980) {

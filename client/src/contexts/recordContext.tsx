@@ -37,13 +37,13 @@ function sortRecords(records: RecordItem[], sortOptions: RecordSortOptions): Dat
     return result;
 }
 
-function filterRecords(records: RecordItem[], filterOptions: RecordFilterOptions): RecordItem[] {
+function getFilteredRecords(records: RecordItem[], filterOptions: RecordFilterOptions): RecordItem[] {
     const result: RecordItem[] = [];
 
     if (!records || records.length === 0) return result;
 
-    if (filterOptions?.amount) {
-        for (let i = 0; i < filterOptions.amount; i++) {
+    if (filterOptions?.limit) {
+        for (let i = 0; i < filterOptions.limit; i++) {
             if (isDateInRange(filterOptions.from, filterOptions.to, records[i].created_at)) result.push(records[i]);
         }
     } else {
@@ -57,11 +57,11 @@ function filterRecords(records: RecordItem[], filterOptions: RecordFilterOptions
 
 // All dates should be of format YYYY-MM-DD
 function isDateInRange(from: string, to: string, date: string): boolean {
-    if (from.length !== 10 || to.length !== 10 || date.length !== 100) return false;
+    if (from.length !== 10 || to.length !== 10) return false;
 
-    const formattedFrom: string[] = from.split("-");
-    const formattedTo: string[] = to.split("-");
-    const formattedDate: string[] = date.split("-");
+    const formattedFrom: string[] = from.split(/-| /);
+    const formattedTo: string[] = to.split(/-| /);
+    const formattedDate: string[] = date.split(/-| /);
 
     for (let i = 0; i <= 2; i++) {
         if (formattedDate[i] < formattedFrom[i] || formattedDate[i] > formattedTo[i]) return false;
@@ -78,7 +78,7 @@ const RecordContext = createContext<{
     // others
     allRecordsState: RecordItem[];
     setAllRecordsState: React.Dispatch<React.SetStateAction<RecordItem[]>>;
-    getFilteredRecords: (filterOptions: RecordFilterOptions, records?: RecordItem[]) => RecordItem[];
+    filterRecords: (filterOptions: RecordFilterOptions, records?: RecordItem[]) => void;
     getSortedRecords: (sortOptions: RecordSortOptions, records?: RecordItem[]) => DataItem[];
 }>({
     // recordReducer
@@ -87,7 +87,7 @@ const RecordContext = createContext<{
     // others
     allRecordsState: [],
     setAllRecordsState: () => [],
-    getFilteredRecords: () => [],
+    filterRecords: () => null,
     getSortedRecords: () => [],
 });
 
@@ -95,8 +95,9 @@ export function RecordContextProvider({ children }: RecordContextProviderProps) 
     const [recordState, recordDispatch] = useReducer(recordReducer, []);
     const [allRecordsState, setAllRecordsState] = useState<RecordItem[]>([]);
 
-    const getFilteredRecords = (filterOptions: RecordFilterOptions, records?: RecordItem[]): RecordItem[] => {
-        return filterRecords(records ? records : allRecordsState, filterOptions);
+    const filterRecords = (filterOptions: RecordFilterOptions, records?: RecordItem[]): void => {
+        const filteredRecords: RecordItem[] = getFilteredRecords(records ? records : allRecordsState, filterOptions);
+        recordDispatch({ type: "UPDATE", records: filteredRecords });
     };
 
     const getSortedRecords = (sortOptions: RecordSortOptions, records?: RecordItem[]): DataItem[] => {
@@ -110,7 +111,7 @@ export function RecordContextProvider({ children }: RecordContextProviderProps) 
                 setAllRecordsState,
                 recordState,
                 recordDispatch,
-                getFilteredRecords,
+                filterRecords,
                 getSortedRecords,
             }}
         >

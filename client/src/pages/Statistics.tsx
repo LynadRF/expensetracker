@@ -9,11 +9,11 @@ import SimpleBarChart from "../components/Statistics/Charts/SimpleBarChart";
 import "../styles/Statistics.css";
 
 export default function Statistics() {
-    const { recordState, getFilteredRecords, getSortedRecords } = useRecords();
+    const { recordState, getSortedRecords } = useRecords();
     const { height, width } = useWindowDimensions();
-    const [plot, setPlot] = useState("barchart");
+    const [plot, setPlot] = useState<string>("barchart");
     const [sort, setSort] = useState<RecordSortOptions>({ by: "month" });
-    const plotData = getSortedRecords(sort, getFilteredRecords({ from: "01/2023", to: "12/2024" }));
+    const plotData = getSortedRecords(sort, recordState);
 
     const renderStatistics = (plot: string) => {
         switch (plot) {
