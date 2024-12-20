@@ -34,6 +34,28 @@ function sortRecords(records: RecordItem[], sortOptions: RecordSortOptions): Dat
     if (sortOptions.by === "month" || sortOptions.by === "year")
         result.sort((a, b) => parseInt(a.name, 10) - parseInt(b.name, 10));
 
+    const monthsShort: string[] = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "June",
+        "July",
+        "Aug",
+        "Sept",
+        "Oct",
+        "Nov",
+        "Dec",
+    ];
+    if (sortOptions.by === "month") {
+        for (let i = 0; i < result.length; i++) {
+            result[i].name = monthsShort[i];
+        }
+    }
+
+    if (sortOptions.by === "category") result.sort((a, b) => b.value - a.value);
+
     return result;
 }
 
@@ -43,7 +65,7 @@ function getFilteredRecords(records: RecordItem[], filterOptions: RecordFilterOp
     if (!records || records.length === 0) return result;
 
     if (filterOptions?.limit) {
-        for (let i = 0; i < filterOptions.limit; i++) {
+        for (let i = 0; i < filterOptions.limit && i < records.length; i++) {
             if (isDateInRange(filterOptions.from, filterOptions.to, records[i].created_at)) result.push(records[i]);
         }
     } else {
@@ -75,6 +97,9 @@ const RecordContext = createContext<{
     // recordReducer
     recordState: RecordItem[];
     recordDispatch: (recordDispatch: RecordReducerAction) => void;
+    // filter useState
+    filterState: RecordFilterOptions;
+    setFilterState: React.Dispatch<React.SetStateAction<RecordFilterOptions>>;
     // others
     allRecordsState: RecordItem[];
     setAllRecordsState: React.Dispatch<React.SetStateAction<RecordItem[]>>;
@@ -84,6 +109,9 @@ const RecordContext = createContext<{
     // recordReducer
     recordState: [],
     recordDispatch: () => null,
+    // filter useState
+    filterState: { from: "", to: "", limit: 9999 },
+    setFilterState: () => {},
     // others
     allRecordsState: [],
     setAllRecordsState: () => [],
@@ -94,6 +122,7 @@ const RecordContext = createContext<{
 export function RecordContextProvider({ children }: RecordContextProviderProps) {
     const [recordState, recordDispatch] = useReducer(recordReducer, []);
     const [allRecordsState, setAllRecordsState] = useState<RecordItem[]>([]);
+    const [filterState, setFilterState] = useState<RecordFilterOptions>({ from: "", to: "", limit: 9999 });
 
     const filterRecords = (filterOptions: RecordFilterOptions, records?: RecordItem[]): void => {
         const filteredRecords: RecordItem[] = getFilteredRecords(records ? records : allRecordsState, filterOptions);
@@ -107,10 +136,12 @@ export function RecordContextProvider({ children }: RecordContextProviderProps) 
     return (
         <RecordContext.Provider
             value={{
-                allRecordsState,
-                setAllRecordsState,
                 recordState,
                 recordDispatch,
+                filterState,
+                setFilterState,
+                allRecordsState,
+                setAllRecordsState,
                 filterRecords,
                 getSortedRecords,
             }}

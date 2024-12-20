@@ -8,6 +8,33 @@ import { RecordSortOptions } from "../types/types";
 import SimpleBarChart from "../components/Statistics/Charts/SimpleBarChart";
 import "../styles/Statistics.css";
 
+type SortProps = {
+    setSort: React.Dispatch<React.SetStateAction<RecordSortOptions>>;
+};
+
+function Sort({ setSort }: SortProps) {
+    return (
+        <div className="sort-container">
+            <div>Sort by:</div>
+            <div className="sort-child">
+                <button className="sort-btn" onClick={() => setSort({ by: "month" })}>
+                    Month
+                </button>
+            </div>
+            <div className="sort-child">
+                <button className="sort-btn" onClick={() => setSort({ by: "year" })}>
+                    Year
+                </button>
+            </div>
+            <div className="sort-child">
+                <button className="sort-btn" onClick={() => setSort({ by: "category" })}>
+                    Category
+                </button>
+            </div>
+        </div>
+    );
+}
+
 export default function Statistics() {
     const { recordState, getSortedRecords } = useRecords();
     const { height, width } = useWindowDimensions();
@@ -18,9 +45,9 @@ export default function Statistics() {
     const renderStatistics = (plot: string) => {
         switch (plot) {
             case "linechart":
-                return <SimpleLineChart width={width * 0.8} height={height * 0.7} data={plotData} />;
+                return <SimpleLineChart width={width * 0.8} height={height * 0.75} data={plotData} />;
             case "barchart":
-                return <SimpleBarChart width={width * 0.8} height={height * 0.7} data={plotData} />;
+                return <SimpleBarChart width={width * 0.8} height={height * 0.75} data={plotData} />;
             default:
                 return null;
         }
@@ -30,8 +57,9 @@ export default function Statistics() {
         <>
             <Sidebar />
             <main>
-                <h1>Statistics</h1>
+                <div className="statistics-container"></div>
                 <Filter />
+                <Sort setSort={setSort} />
                 <div className="statistics-filter-container">
                     <button
                         className="statistics-filter-btn"
@@ -50,7 +78,7 @@ export default function Statistics() {
                         BarChart
                     </button>
                 </div>
-                <div className="statistics-container">
+                <div className="charts-container">
                     {recordState.length === 0 ? (
                         <h2 style={{ marginTop: "5vh", padding: "0px 2vw" }}>
                             No data selected! (Try checking your filters)

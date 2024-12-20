@@ -342,7 +342,7 @@ export default function AccountSettings() {
                     </div>
                     <label className="my-account-label">CREATED AT:</label>
                     <div className="my-account-row">
-                        <div>{userState.createdAt} UTC</div>
+                        <div>{userState.createdAt}</div>
                     </div>
                 </div>
             </div>

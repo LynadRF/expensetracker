@@ -2,10 +2,9 @@ import express, { Express } from "express";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import cors from "cors";
-
 import user from "./routes/user";
 import record from "./routes/record";
-import { initDemoAccount, initTables } from "./db/db";
+import { initTables } from "./db/db";
 
 dotenv.config();
 
@@ -27,7 +26,6 @@ app.use("/api/user", user);
 app.use("/api/record", record);
 
 initTables();
-initDemoAccount();
 
 app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);

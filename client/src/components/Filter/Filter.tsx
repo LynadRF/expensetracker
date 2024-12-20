@@ -1,17 +1,11 @@
-import { useState } from "react";
 import { useRecords } from "../../contexts/recordContext";
 import "./Filter.css";
 
 export default function Filter() {
-    const { allRecordsState, filterRecords, recordDispatch } = useRecords();
-
-    const [formValues, setFormValues] = useState({
-        from: "",
-        to: "",
-    });
+    const { allRecordsState, filterState, setFilterState, filterRecords, recordDispatch } = useRecords();
 
     const applyFilter = () => {
-        filterRecords(formValues);
+        filterRecords(filterState);
     };
 
     const resetFilter = () => {
@@ -20,7 +14,7 @@ export default function Filter() {
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        setFormValues((prevValues) => ({
+        setFilterState((prevValues) => ({
             ...prevValues,
             [name]: value,
         }));
@@ -35,7 +29,7 @@ export default function Filter() {
                         type="date"
                         className="filter-input-date"
                         name="from"
-                        value={formValues.from}
+                        value={filterState.from}
                         onChange={handleInputChange}
                     />
                 </div>
@@ -45,7 +39,7 @@ export default function Filter() {
                         type="date"
                         className="filter-input-date"
                         name="to"
-                        value={formValues.to}
+                        value={filterState.to}
                         onChange={handleInputChange}
                     />
                 </div>

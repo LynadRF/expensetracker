@@ -21,6 +21,7 @@ export const initTables = async () => {
     } catch (error) {
         console.error("Error creating db tables:", error);
     }
+    await initDemoAccount();
 };
 
 const createUsersTableSql = `CREATE TABLE IF NOT EXISTS "users" (
@@ -43,7 +44,7 @@ const createRecordsTableSql = `CREATE TABLE IF NOT EXISTS "records" (
     FOREIGN KEY (user_id) REFERENCES "users"("id")
 );`;
 
-export const initDemoAccount = async () => {
+const initDemoAccount = async () => {
     const db = await getDb();
 
     try {

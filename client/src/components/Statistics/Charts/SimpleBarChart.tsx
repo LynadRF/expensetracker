@@ -1,5 +1,6 @@
-import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 import { DataItem } from "../../../types/types";
+import CustomTooltip from "../CustomTooltip";
 
 type SimpleBarChartProps = {
     width: number;
@@ -8,6 +9,7 @@ type SimpleBarChartProps = {
 };
 
 export default function SimpleBarChart({ width, height, data }: SimpleBarChartProps) {
+    const currency = localStorage.getItem("currency-symbol");
     return (
         <BarChart
             width={width}
@@ -15,17 +17,23 @@ export default function SimpleBarChart({ width, height, data }: SimpleBarChartPr
             data={data}
             margin={{
                 top: 5,
-                right: 30,
-                left: 20,
+                right: 0,
+                left: 0,
                 bottom: 5,
             }}
         >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis stroke="#8884d8" />
-            <Tooltip itemStyle={{ color: "var(--color4)" }} />
+            <XAxis dataKey="name" stroke="var(--color1)" />
+            <YAxis stroke="var(--color1)" />
+            <Tooltip content={<CustomTooltip />} />
             <Legend />
-            <Bar dataKey="value" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
+            <Bar
+                name={`value in ${currency}`}
+                dataKey="value"
+                fill="#8884d8"
+                background={{ fill: "transparent" }}
+                activeBar={<Rectangle fill="var(--color_highlight_green)" stroke="blue" />}
+            />
         </BarChart>
     );
 }
