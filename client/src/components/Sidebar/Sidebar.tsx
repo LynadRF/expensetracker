@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWallet, faHouse, faList, faChartSimple, faGear } from "@fortawesome/free-solid-svg-icons";
+import { faMoneyBill, faHouse, faList, faChartSimple, faGear } from "@fortawesome/free-solid-svg-icons";
 import "./Sidebar.css";
 
 export default function Sidebar() {
@@ -17,10 +17,9 @@ export default function Sidebar() {
             <nav className="sidebar-container">
                 <div className="sidebar-app">
                     <div className="app-icon">
-                        <FontAwesomeIcon icon={faWallet} />
+                        <FontAwesomeIcon icon={faMoneyBill} />
                     </div>
-                    <p className="app-text-long">BudgetTracker</p>
-                    <p className="app-text-short">BTracker</p>
+                    <p className="app-text">ExpenseTracker</p>
                 </div>
                 <ul className="sidebar-ul">
                     {sidebarData.map((item, index) => (

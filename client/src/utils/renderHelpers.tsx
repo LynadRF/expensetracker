@@ -79,10 +79,9 @@ export function renderCategoryItems(category: string): JSX.Element {
 type RenderCategoryOptionsProps = {
     className?: string;
     style?: React.CSSProperties;
-    selected?: string;
 };
 
-export function renderCategoryOptions({ className, style, selected }: RenderCategoryOptionsProps): JSX.Element[] {
+export function renderCategoryOptions({ className, style }: RenderCategoryOptionsProps): JSX.Element[] {
     const categoryStorage: string = localStorage.getItem("custom-categories") || "[]";
     const customCategories: string[] = JSON.parse(categoryStorage);
     const totalCategories: JSX.Element[] = [];
@@ -92,7 +91,7 @@ export function renderCategoryOptions({ className, style, selected }: RenderCate
         .filter((key) => isNaN(Number(key)))
         .map((item, index) =>
             totalCategories.push(
-                <option key={index} value={item} className={className} style={style} selected={item === selected}>
+                <option key={index} value={item} className={className} style={style}>
                     {item}
                 </option>
             )
@@ -108,7 +107,6 @@ export function renderCategoryOptions({ className, style, selected }: RenderCate
                     value={item}
                     className={className}
                     style={style}
-                    selected={item === selected}
                 >
                     {item}
                 </option>

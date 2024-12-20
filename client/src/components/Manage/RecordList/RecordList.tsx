@@ -17,7 +17,7 @@ export default function RecordList({ records }: RecordListProps) {
     const { recordDispatch } = useRecords();
 
     const handleDeleteRecord = (recordId: number): void => {
-        recordDispatch({ type: "UPDATE", records: records.filter((record) => record.id !== recordId) });
+        recordDispatch({ type: "DELETE", recordId: recordId });
     };
 
     const renderRecords = () => {
@@ -135,10 +135,10 @@ function Record({ record, onDelete }: RecordProps) {
                                         className="recordentry-category-select"
                                         onChange={handleChange}
                                         style={{ fontSize: "max(12px, 1vw)" }}
+                                        defaultValue={record.category}
                                     >
                                         {renderCategoryOptions({
                                             className: "recordentry-category-option",
-                                            selected: `${record.category}`,
                                         })}
                                     </select>
                                 </div>

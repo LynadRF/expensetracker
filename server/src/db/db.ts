@@ -71,18 +71,18 @@ const initDemoAccount = async () => {
 const createDemoUserSql = `INSERT INTO users (id, email, username, password, created_at) VALUES(0, 'demo@web.de', 'demo', :password, datetime('now'));`;
 
 const createDemoRecordsSql = `INSERT INTO records (description, amount, category, user_id, created_at) VALUES
-('January Rent', 1200, 'Rent', 0, '${thisYear}-01-01 10:00:00'),
-('February Rent', 1200, 'Rent', 0, '${thisYear}-02-01 10:00:00'),
-('March Rent', 1200, 'Rent', 0, '${thisYear}-03-01 10:00:00'),
-('April Rent', 1200, 'Rent', 0, '${thisYear}-04-01 10:00:00'),
-('May Rent', 1200, 'Rent', 0, '${thisYear}-05-01 10:00:00'),
-('June Rent', 1200, 'Rent', 0, '${thisYear}-06-01 10:00:00'),
-('July Rent', 1200, 'Rent', 0, '${thisYear}-07-01 10:00:00'),
-('August Rent', 1200, 'Rent', 0, '${thisYear}-08-01 10:00:00'),
-('September Rent', 1200, 'Rent', 0, '${thisYear}-09-01 10:00:00'),
-('October Rent', 1200, 'Rent', 0, '${thisYear}-10-01 10:00:00'),
-('November Rent', 1200, 'Rent', 0, '${thisYear}-11-01 10:00:00'),
-('December Rent', 1200, 'Rent', 0, '${thisYear}-12-01 10:00:00'),
+('January Rent', 1000, 'Rent', 0, '${thisYear}-01-01 10:00:00'),
+('February Rent', 1000, 'Rent', 0, '${thisYear}-02-01 10:00:00'),
+('March Rent', 1000, 'Rent', 0, '${thisYear}-03-01 10:00:00'),
+('April Rent', 1000, 'Rent', 0, '${thisYear}-04-01 10:00:00'),
+('May Rent', 1000, 'Rent', 0, '${thisYear}-05-01 10:00:00'),
+('June Rent', 1000, 'Rent', 0, '${thisYear}-06-01 10:00:00'),
+('July Rent', 1000, 'Rent', 0, '${thisYear}-07-01 10:00:00'),
+('August Rent', 1000, 'Rent', 0, '${thisYear}-08-01 10:00:00'),
+('September Rent', 1000, 'Rent', 0, '${thisYear}-09-01 10:00:00'),
+('October Rent', 1000, 'Rent', 0, '${thisYear}-10-01 10:00:00'),
+('November Rent', 1000, 'Rent', 0, '${thisYear}-11-01 10:00:00'),
+('December Rent', 1000, 'Rent', 0, '${thisYear}-12-01 10:00:00'),
 
 ('January Utilities', 150, 'Utilities', 0, '${thisYear}-01-05 15:30:00'),
 ('February Utilities', 145, 'Utilities', 0, '${thisYear}-02-05 15:30:00'),
@@ -106,7 +106,7 @@ const createDemoRecordsSql = `INSERT INTO records (description, amount, category
 ('Gas', 60, 'Transport', 0, '${thisYear}-01-15 08:20:00'),
 ('Taxi', 30, 'Transport', 0, '${thisYear}-03-09 22:00:00'),
 ('Public Transit', 50, 'Transport', 0, '${thisYear}-05-07 07:30:00'),
-('Car Repair', 350, 'Transport', 0, '${thisYear}-08-16 09:40:00'),
+('Car Repair', 1500, 'Transport', 0, '${thisYear}-08-16 09:40:00'),
 ('Bike Maintenance', 45, 'Transport', 0, '${thisYear}-11-12 17:10:00'),
 
 ('Weekly Groceries', 150, 'Groceries', 0, '${thisYear}-01-08 12:00:00'),
@@ -126,6 +126,7 @@ const createDemoRecordsSql = `INSERT INTO records (description, amount, category
 ('Theme Park', 150, 'Leisure', 0, '${thisYear}-07-10 11:00:00'),
 ('Museum', 25, 'Leisure', 0, '${thisYear}-10-03 14:30:00'),
 ('Gaming Subscription', 15, 'Leisure', 0, '${thisYear}-12-01 12:00:00'),
+('New gaming PC', 1750, 'Leisure', 0, '${thisYear}-09-01 12:00:00'),
 
 ('Vet Visit', 80, 'Pets', 0, '${thisYear}-02-02 09:15:00'),
 ('Pet Food', 50, 'Pets', 0, '${thisYear}-03-15 10:45:00'),
@@ -137,4 +138,5 @@ const createDemoRecordsSql = `INSERT INTO records (description, amount, category
 ('Electronics', 200, 'Other', 0, '${thisYear}-04-10 14:00:00'),
 ('Books', 50, 'Other', 0, '${thisYear}-06-15 16:30:00'),
 ('Subscription', 10, 'Other', 0, '${thisYear}-09-22 09:45:00'),
-('Miscellaneous', 25, 'Other', 0, '${thisYear}-12-31 23:59:59');`;
+('Miscellaneous', 25, 'Other', 0, '${thisYear}-12-31 23:59:59'),
+('Paying off a loan', 5000, 'Other', 0, '${thisYear}-05-31 23:59:59');`;

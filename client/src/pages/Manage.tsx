@@ -10,7 +10,9 @@ export default function Manage() {
         <>
             <Sidebar />
             <main>
-                <RecordEntry />
+                <div style={{ margin: "4vh 4vw 1vh 4vw" }}>
+                    <RecordEntry />
+                </div>
                 <Filter />
                 <RecordList records={recordState} />
             </main>

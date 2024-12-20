@@ -24,14 +24,10 @@
     padding-top: 2vh;
 }
 
-.app-text-long {
+.app-text {
     font-size: max(16px, 1.6vmax);
     font-weight: 600;
     margin: 0;
-}
-
-.app-text-short {
-    display: none;
 }
 
 .sidebar-ul {
@@ -86,14 +82,8 @@
     .app-icon {
         font-size: 3rem;
     }
-    .app-text-long {
+    .app-text {
         display: none;
-    }
-    .app-text-short {
-        display: block;
-        font-size: max(10px, 2.5vmin);
-        font-weight: 600;
-        margin: 0;
     }
     .sidebar-ul {
         padding-inline-start: 0;

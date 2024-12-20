@@ -1,13 +1,75 @@
 .dashboard-container {
     display: grid;
-    grid-template-columns: [start] 1fr [line1] 2fr [line2] 1fr [end];
-    margin: max(1vh, 10px) 4vw;
+    grid-template-columns: [start] 5fr [line1] 2fr [end];
+    grid-template-rows: [start] 1fr [end];
+    margin: max(2vh, 10px) 2vw;
 }
 
-.dashboard-expenses-overview {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+@media only screen and (max-width: 980px) {
+    .dashboard-container {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.dashboard-main-content {
+    height: fit-content;
+    display: grid;
+    grid-row-start: start;
+    grid-row-end: end;
     grid-column-start: start;
     grid-column-end: line1;
+}
+
+.dashboard-sidebar {
+    grid-row-start: start;
+    grid-row-end: end;
+    grid-column-start: line1;
+    grid-column-end: end;
+}
+
+.dashboard-h3 {
+    padding: 1vh 0 1vh 2vw;
+    margin: 0;
+    line-break: anywhere;
+}
+
+.dashboard-expenses-overview,
+.dashboard-recent-expenses-overview,
+.dashboard-top-expenses-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 5px;
+    background-color: var(--color3);
+    margin: 0 1vw 4vh 1vw;
+}
+
+.dashboard-expenses-entries,
+.dashboard-top-expenses {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 0 1vh 3vw;
+
+    grid-column-start: start;
+    grid-column-end: line1;
+    grid-row-start: start;
+    grid-row-end: end;
+}
+
+.dashboard-expenses-category > div > div {
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-recent-records-list {
+    width: 100%;
+    background-color: var(--color3);
+    border-radius: inherit;
+}
+
+.dashboard-expenses-entries > div {
+    padding: 2px 0;
+    align-items: center;
 }

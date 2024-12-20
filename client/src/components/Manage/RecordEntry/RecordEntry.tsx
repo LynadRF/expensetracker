@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useRecords } from "../../../contexts/recordContext";
 import requestAPI from "../../../api";
-import "./RecordEntry.css";
 import { renderCategoryOptions, renderCurrencyIcon } from "../../../utils/renderHelpers";
+import "./RecordEntry.css";
 
 export default function RecordEntry() {
-    const { recordState, recordDispatch } = useRecords();
+    const { recordDispatch } = useRecords();
     const [formValues, setFormValues] = useState({
         description: "",
         amount: 0,
@@ -31,17 +31,14 @@ export default function RecordEntry() {
             if (response.ok) {
                 const today = new Date();
                 recordDispatch({
-                    type: "UPDATE",
-                    records: [
-                        {
-                            id: result.data.id,
-                            description: formValues.description,
-                            amount: formValues.amount,
-                            category: formValues.category,
-                            created_at: today.toISOString(),
-                        },
-                        ...recordState,
-                    ],
+                    type: "ADD",
+                    record: {
+                        id: result.data.id,
+                        description: formValues.description,
+                        amount: formValues.amount,
+                        category: formValues.category,
+                        created_at: today.toISOString().split("T")[0],
+                    },
                 });
             }
         };
