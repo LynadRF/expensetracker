@@ -1,5 +1,13 @@
 .dashboard-container {
+    display: grid;
+    grid-template-columns: [start] 1fr [line1] 2fr [line2] 1fr [end];
+    margin: max(1vh, 10px) 4vw;
+}
+
+.dashboard-expenses-overview {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    grid-column-start: start;
+    grid-column-end: line1;
 }

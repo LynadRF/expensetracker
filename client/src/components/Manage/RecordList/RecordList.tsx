@@ -11,7 +11,7 @@ import "./RecordList.css";
 
 type RecordListProps = {
     records: RecordItem[];
-}
+};
 
 export default function RecordList({ records }: RecordListProps) {
     const { recordDispatch } = useRecords();
@@ -53,17 +53,10 @@ function Record({ record, onDelete }: RecordProps) {
         setFormValues((prevState) => ({ ...prevState, category: e.target.value }));
     };
 
-    const formatDateShort = (date: string) => {
-        if (date === "now") return date;
+    const formatDate = (date: string) => {
+        const splitDate: string[] = date.split(/-| /);
         let result = "";
-        result += date.slice(8, 10) + "/" + date.slice(5, 7) + "/" + date.slice(0, 4);
-        return result;
-    };
-
-    const formatDateLong = (date: string) => {
-        if (date === "now") return date;
-        let result = "";
-        result += date.slice(11, 16) + " UTC - " + date.slice(8, 10) + "/" + date.slice(5, 7) + "/" + date.slice(0, 4);
+        result += splitDate[2] + "/" + splitDate[1] + "/" + splitDate[0];
         return result;
     };
 
@@ -133,7 +126,7 @@ function Record({ record, onDelete }: RecordProps) {
                                 <div className="record-modal-col">
                                     <p className="record-modal-p">Created at:</p>
                                     <label style={{ fontSize: "max(12px, 0.85vw)" }}>
-                                        {formatDateLong(record.created_at)}
+                                        {formatDate(record.created_at)}
                                     </label>
                                 </div>
                                 <div className="record-modal-col">
@@ -178,7 +171,7 @@ function Record({ record, onDelete }: RecordProps) {
                     {record.amount}
                     {renderCurrencyIcon("record-currency-icon")}
                 </div>
-                <div className="record-created_at">{formatDateShort(record.created_at)}</div>
+                <div className="record-created_at">{formatDate(record.created_at)}</div>
                 <div className="record-edit">
                     <button className="record-edit-btn" onClick={() => setIsOpen(true)}>
                         <FontAwesomeIcon className="record-edit-icon" icon={faPenToSquare} />

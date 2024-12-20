@@ -62,7 +62,7 @@ user.post("/register", async (req, res) => {
     try {
         const hashedPassword: string = await bcrypt.hash(password, 10);
         const insertion = await db.run(
-            "insert into users (email, username, password, created_at) values (:email, :username, :password, date('now'))",
+            "insert into users (email, username, password, created_at) values (:email, :username, :password, datetime('now'))",
             {
                 ":email": email,
                 ":username": username,

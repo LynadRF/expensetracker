@@ -12,10 +12,10 @@ function sortRecords(records: RecordItem[], sortOptions: RecordSortOptions): Dat
                 key = record.category;
                 break;
             case "month":
-                key = record.created_at.split("-")[1];
+                key = record.created_at.split(/-| /)[1];
                 break;
             case "year":
-                key = record.created_at.split("-")[0];
+                key = record.created_at.split(/-| /)[0];
                 break;
             default:
                 key = record.category;

@@ -1,67 +1,76 @@
+import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
-import SimpleLineChart from "../components/Statistics/Charts/SimpleLineChart";
 import { useRecords } from "../contexts/recordContext";
-import useWindowDimensions from "../hooks/useWindowDimensions";
-import { DataItem, RecordFilterOptions, RecordSortOptions } from "../types/types";
 import "../styles/Dashboard.css";
+import { renderCurrencyIcon } from "../utils/renderHelpers";
 
 export default function Dashboard() {
-    const { recordState, getSortedRecords } = useRecords();
-    const { height, width } = useWindowDimensions();
-    const today: Date = new Date();
-    const lastYear: number = today.getFullYear() - 1;
-    const sortOptions: RecordSortOptions = { by: "month" };
-    const filterOptions: RecordFilterOptions = setDefaultFilterOptions();
-    const chartData: DataItem[] = getSortedRecords(sortOptions, recordState);
+    const { allRecordsState, recordState } = useRecords();
+    const [expenseState, setExpenseState] = useState({
+        oneYear: 0,
+        sixMonths: 0,
+        threeMonths: 0,
+        oneMonth: 0,
+    });
 
-    function setDefaultFilterOptions(): RecordFilterOptions {
-        if (width > 980) {
-            return { from: lastYear.toString(), to: lastYear.toString() };
-        }
-        if (width > 600) {
-            let sixMonthsAgo = today.getMonth() - 6;
-            if (sixMonthsAgo <= 0) {
-                sixMonthsAgo += 12;
-                return { from: sixMonthsAgo + "/" + lastYear, to: today.getMonth() + "/" + today.getFullYear() };
-            }
-            return {
-                from: sixMonthsAgo + "/" + today.getFullYear(),
-                to: today.getMonth() + "/" + today.getFullYear(),
-            };
-        }
-        let threeMonthsAgo = today.getMonth() - 3;
-        if (threeMonthsAgo <= 0) {
-            threeMonthsAgo += 12;
-            return { from: threeMonthsAgo + "/" + lastYear, to: today.getMonth() + "/" + today.getFullYear() };
-        }
-        return {
-            from: threeMonthsAgo + "/" + today.getFullYear(),
-            to: today.getMonth() + "/" + today.getFullYear(),
-        };
-    }
+    const today: Date = new Date();
+
+    const oneYearAgo = new Date();
+    oneYearAgo.setFullYear(today.getFullYear() - 1);
+
+    const sixMonthsAgo = new Date();
+    sixMonthsAgo.setMonth(today.getMonth() - 6);
+
+    const threeMonthsAgo = new Date();
+    threeMonthsAgo.setMonth(today.getMonth() - 3);
+
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(today.getMonth() - 1);
+
+    const getExpensesFrom = (from: Date) => {
+        let result: number = 0;
+
+        // Six Months ago + set to first of the month
+
+        allRecordsState.forEach((record) => {
+            const recordDate: Date = new Date(record.created_at);
+            if (recordDate >= from && recordDate <= today) result += record.amount;
+        });
+        return result;
+    };
+
+    useEffect(() => {
+        setExpenseState({
+            oneYear: getExpensesFrom(oneYearAgo),
+            sixMonths: getExpensesFrom(sixMonthsAgo),
+            threeMonths: getExpensesFrom(threeMonthsAgo),
+            oneMonth: getExpensesFrom(oneMonthAgo),
+        });
+    }, [recordState]);
 
     return (
         <>
             <Sidebar />
             <main>
                 <div className="dashboard-container">
-                    <div>
-                        {!chartData || chartData.length === 0 ? (
-                            <h4>No recent data to display</h4>
-                        ) : (
-                            <>
-                                <h4>
-                                    {filterOptions.from === filterOptions.to ? (
-                                        <>Expenses of {filterOptions.from}</>
-                                    ) : (
-                                        <>
-                                            Expenses from {filterOptions.from} to {filterOptions.to}
-                                        </>
-                                    )}
-                                </h4>
-                                <SimpleLineChart width={width * 0.8} height={height * 0.5} data={chartData} />
-                            </>
-                        )}
+                    <div className="dashboard-expenses-overview">
+                        <h3>Expenses</h3>
+                        <div className="dashboard-expenses-overview-child">
+                            Last month: {expenseState.oneMonth}
+                            {renderCurrencyIcon()}
+                        </div>
+                        <div className="dashboard-expenses-overview-child">
+                            Last 3 months: {expenseState.threeMonths}
+                            {renderCurrencyIcon()}
+                        </div>
+                        <div className="dashboard-expenses-overview-child">
+                            Last 6 months: {expenseState.sixMonths}
+                            {renderCurrencyIcon()}
+                        </div>
+                        <div className="dashboard-expenses-overview-child">
+                            Last year: {expenseState.oneYear}
+                            {renderCurrencyIcon()}
+                        </div>
                     </div>
                 </div>
             </main>

@@ -27,7 +27,7 @@ record.post("/add", async (req, res) => {
 
     try {
         const insertion = await db.run(
-            "insert into records (description, amount, category, user_id, created_at) values (:description, :amount, :category, :user_id, date('now'))",
+            "insert into records (description, amount, category, user_id, created_at) values (:description, :amount, :category, :user_id, datetime('now'))",
             {
                 ":description": data.description,
                 ":amount": data.amount,

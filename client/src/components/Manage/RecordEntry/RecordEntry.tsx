@@ -29,6 +29,7 @@ export default function RecordEntry() {
             const result = await response.json();
             console.log(result);
             if (response.ok) {
+                const today = new Date();
                 recordDispatch({
                     type: "UPDATE",
                     records: [
@@ -37,7 +38,7 @@ export default function RecordEntry() {
                             description: formValues.description,
                             amount: formValues.amount,
                             category: formValues.category,
-                            created_at: "now",
+                            created_at: today.toISOString(),
                         },
                         ...recordState,
                     ],
