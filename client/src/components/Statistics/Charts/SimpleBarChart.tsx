@@ -28,7 +28,7 @@ export default function SimpleBarChart({ width, height, data }: SimpleBarChartPr
             <Tooltip content={<CustomTooltip />} />
             <Legend />
             <Bar
-                name={`value in ${currency}`}
+                name={`value in ${currency ? currency : "Euro"}`}
                 dataKey="value"
                 fill="#8884d8"
                 background={{ fill: "transparent" }}

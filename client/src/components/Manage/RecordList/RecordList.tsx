@@ -14,10 +14,11 @@ type RecordListProps = {
 };
 
 export default function RecordList({ records }: RecordListProps) {
-    const { recordDispatch } = useRecords();
+    const { allRecordsDispatch, recordDispatch } = useRecords();
 
     const handleDeleteRecord = (recordId: number): void => {
         recordDispatch({ type: "DELETE", recordId: recordId });
+        allRecordsDispatch({ type: "DELETE", recordId: recordId });
     };
 
     const renderRecords = () => {
@@ -37,8 +38,9 @@ type RecordProps = {
 };
 
 function Record({ record, onDelete }: RecordProps) {
+    const { allRecordsDispatch, recordDispatch } = useRecords();
     const [isOpen, setIsOpen] = useState(false);
-    const [formValues, setFormValues] = useState({
+    const [formValues, setFormValues] = useState<{ description: string; amount: number; category: string }>({
         description: record.description,
         amount: record.amount,
         category: record.category,
@@ -71,9 +73,15 @@ function Record({ record, onDelete }: RecordProps) {
             const result = await response.json();
             console.log(result);
             if (response.ok) {
-                record.description = formValues.description;
-                record.amount = formValues.amount;
-                record.category = formValues.category;
+                const recordEdit: RecordItem = {
+                    id: record.id,
+                    description: formValues.description,
+                    amount: formValues.amount,
+                    category: formValues.category,
+                    created_at: record.created_at,
+                };
+                recordDispatch({ type: "EDIT", record: recordEdit });
+                allRecordsDispatch({ type: "EDIT", record: recordEdit });
                 setIsOpen(false);
             }
         };
@@ -87,6 +95,7 @@ function Record({ record, onDelete }: RecordProps) {
             console.log(result);
             if (response.ok) {
                 onDelete(record.id);
+                setIsOpen(false);
             }
         };
         fetch();

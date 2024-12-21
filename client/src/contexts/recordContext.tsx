@@ -102,7 +102,7 @@ const RecordContext = createContext<{
     setFilterState: React.Dispatch<React.SetStateAction<RecordFilterOptions>>;
     // others
     allRecordsState: RecordItem[];
-    setAllRecordsState: React.Dispatch<React.SetStateAction<RecordItem[]>>;
+    allRecordsDispatch: (allRecordsDispatch: RecordReducerAction) => void;
     filterRecords: (filterOptions: RecordFilterOptions, records?: RecordItem[]) => void;
     getSortedRecords: (sortOptions: RecordSortOptions, records?: RecordItem[]) => DataItem[];
 }>({
@@ -114,14 +114,14 @@ const RecordContext = createContext<{
     setFilterState: () => {},
     // others
     allRecordsState: [],
-    setAllRecordsState: () => [],
+    allRecordsDispatch: () => null,
     filterRecords: () => null,
     getSortedRecords: () => [],
 });
 
 export function RecordContextProvider({ children }: RecordContextProviderProps) {
     const [recordState, recordDispatch] = useReducer(recordReducer, []);
-    const [allRecordsState, setAllRecordsState] = useState<RecordItem[]>([]);
+    const [allRecordsState, allRecordsDispatch] = useReducer(recordReducer, []);
     const [filterState, setFilterState] = useState<RecordFilterOptions>({ from: "", to: "", limit: 9999 });
 
     const filterRecords = (filterOptions: RecordFilterOptions, records?: RecordItem[]): void => {
@@ -141,7 +141,7 @@ export function RecordContextProvider({ children }: RecordContextProviderProps) 
                 filterState,
                 setFilterState,
                 allRecordsState,
-                setAllRecordsState,
+                allRecordsDispatch,
                 filterRecords,
                 getSortedRecords,
             }}

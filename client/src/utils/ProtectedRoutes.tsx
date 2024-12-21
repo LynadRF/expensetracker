@@ -7,7 +7,7 @@ import useAuthRedirect from "../hooks/useAuthRedirect";
 
 export default function ProtectedRoutes() {
     useAuthRedirect("", "/login");
-    const { allRecordsState, setAllRecordsState, recordState, recordDispatch } = useRecords();
+    const { allRecordsState, allRecordsDispatch, recordState, recordDispatch } = useRecords();
 
     const categoriesLocalStorage = localStorage.getItem("custom-categories");
 
@@ -16,7 +16,7 @@ export default function ProtectedRoutes() {
             const response = await requestAPI("POST", "/record/records");
             const result = await response.json();
             if (response.ok) {
-                setAllRecordsState(result.data);
+                allRecordsDispatch({ type: "UPDATE", records: result.data });
                 if (recordState.length === 0) recordDispatch({ type: "UPDATE", records: result.data });
             }
         };
@@ -36,7 +36,7 @@ export default function ProtectedRoutes() {
             if (customCategories && customCategories.length > 0)
                 localStorage.setItem("custom-categories", JSON.stringify(customCategories));
         }
-    }, [allRecordsState, setAllRecordsState, recordState, recordDispatch, categoriesLocalStorage]);
+    }, [allRecordsState, allRecordsDispatch, recordState, recordDispatch, categoriesLocalStorage]);
 
     return <Outlet />;
 }

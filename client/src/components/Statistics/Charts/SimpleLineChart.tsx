@@ -27,7 +27,13 @@ export default function SimpleLineChart({ width, height, data }: SimpleLineChart
             <YAxis stroke="var(--color1)" />
             <Tooltip content={<CustomTooltip />} />
             <Legend />
-            <Line name={`value in ${currency}`} type="monotone" dataKey="value" stroke="#8884d8" activeDot={{ r: 6 }} />
+            <Line
+                name={`value in ${currency ? currency : "Euro"}`}
+                type="monotone"
+                dataKey="value"
+                stroke="#8884d8"
+                activeDot={{ r: 6 }}
+            />
         </LineChart>
     );
 }

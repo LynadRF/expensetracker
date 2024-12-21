@@ -37,11 +37,11 @@ export default function AccountSettings() {
                     type: "UPDATE",
                     userInfo: { ...userState, email: result.data },
                 });
+                setChangeEmailIsOpen(false);
             }
             console.log(result);
         };
         fetch();
-        setChangeEmailIsOpen(false);
     };
     const changeEmailModel = (
         <>
@@ -100,11 +100,11 @@ export default function AccountSettings() {
             const result = await response.json();
             if (response.ok) {
                 userDispatch({ type: "UPDATE", userInfo: { ...userState, username: result.data } });
+                setChangeUsernameIsOpen(false);
             }
             console.log(result);
         };
         fetch();
-        setChangeUsernameIsOpen(false);
     };
     const changeUsernameModal = (
         <>
@@ -157,9 +157,9 @@ export default function AccountSettings() {
             });
             const result = await response.json();
             console.log(result);
+            if (response.ok) setChangePasswordIsOpen(false);
         };
         fetch();
-        setChangePasswordIsOpen(false);
     };
     const changePasswordModal = (
         <>
