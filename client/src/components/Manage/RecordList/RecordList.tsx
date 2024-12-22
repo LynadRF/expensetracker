@@ -134,7 +134,7 @@ function Record({ record, onDelete }: RecordProps) {
                                 </div>
                                 <div className="record-modal-col">
                                     <p className="record-modal-p">Created at:</p>
-                                    <label style={{ fontSize: "max(12px, 0.85vw)" }}>
+                                    <label style={{ fontSize: "max(12px, 1vw)" }}>
                                         {formatDate(record.created_at)}
                                     </label>
                                 </div>

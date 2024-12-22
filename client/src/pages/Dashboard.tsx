@@ -103,11 +103,11 @@ export default function Dashboard() {
                         </div>
                         <div className="dashboard-top-expenses-container">
                             <h3 className="dashboard-h3">Top 5 categories</h3>
-                            <div className="dashboard-top-expenses">{renderTopExpenses()}</div>
+                            <div className="dashboard-top-expenses">{renderTopExpensesByCategory()}</div>
                         </div>
                         <div className="dashboard-top-expenses-container">
                             <h3 className="dashboard-h3">Top 5 expenses</h3>
-                            <div className="dashboard-top-expenses">{renderTopExpensesByCategory()}</div>
+                            <div className="dashboard-top-expenses">{renderTopExpenses()}</div>
                         </div>
                     </div>
                 </div>
