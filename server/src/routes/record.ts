@@ -74,6 +74,67 @@ record.post("/records", async (req, res) => {
     }
 });
 
+record.get("/dashboard-stats", async (_req, res) => {
+    const accountId: number = res.locals.id;
+
+    const db: Database = await getDb();
+
+    const expensesOverTimeQuery: string =
+        "SELECT SUM(amount) as sum FROM records WHERE user_id = :accountId AND created_at >= DATETIME('now', :timeSpan)";
+
+    const topFiveCategoryQuery: string =
+        "SELECT category, SUM(amount) as sum FROM records WHERE records.user_id = :accountId GROUP BY category ORDER BY SUM(amount) DESC LIMIT 5;";
+
+    const topFiveExpensesQuery: string =
+        "SELECT description, amount FROM records WHERE records.user_id = :accountId ORDER BY amount DESC LIMIT 5;";
+
+    try {
+        const oneMonth = await db.get(expensesOverTimeQuery, {
+            ":accountId": accountId,
+            ":timeSpan": "-1 month",
+        });
+
+        const threeMonths = await db.get(expensesOverTimeQuery, {
+            ":accountId": accountId,
+            ":timeSpan": "-3 months",
+        });
+
+        const sixMonths = await db.get(expensesOverTimeQuery, {
+            ":accountId": accountId,
+            ":timeSpan": "-6 months",
+        });
+
+        const oneYear = await db.get(expensesOverTimeQuery, {
+            ":accountId": accountId,
+            ":timeSpan": "-1 year",
+        });
+
+        const topFiveCategories = await db.all(topFiveCategoryQuery, {
+            ":accountId": accountId,
+        });
+
+        const topFiveExpenses = await db.all(topFiveExpensesQuery, {
+            ":accountId": accountId,
+        });
+
+        const data = {
+            oneMonth: oneMonth,
+            threeMonths: threeMonths,
+            sixMonths: sixMonths,
+            oneYear: oneYear,
+            topFiveCategories: topFiveCategories,
+            topFiveExpenses: topFiveExpenses,
+        };
+
+        res.status(200).send({ message: "FETCHED DASHBOARD_STATS", data: data });
+        return;
+    } catch (error) {
+        console.error("Error fetching dashboard statistics:", error);
+        res.status(500).send({ error: "INTERNAL_SERVER_ERROR" });
+        return;
+    }
+});
+
 record.post("/edit", async (req, res) => {
     const { id, newDescription, newAmount, newCategory } = req.body;
     const accountId: number = res.locals.id;

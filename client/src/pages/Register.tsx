@@ -86,7 +86,9 @@ export default function Register() {
                             </button>
                         </div>
                     </fieldset>
-                    <Link to="/login">Already have an account? Log in here!</Link>
+                    <Link className="auth-link" to="/login">
+                        Already have an account? Log in here!
+                    </Link>
                 </div>
             </div>
         </>

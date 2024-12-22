@@ -11,15 +11,7 @@ export function recordReducer(state: RecordItem[], action: RecordReducerAction):
         case "UPDATE":
             return action.records;
         case "EDIT":
-            state.forEach((record) => {
-                if (record.id === action.record.id) {
-                    record.description = action.record.description;
-                    record.amount = action.record.amount;
-                    record.category = action.record.category;
-                    return state;
-                }
-            });
-            return state;
+            return state.map((record) => (record.id === action.record.id ? { ...record, ...action.record } : record));
         case "ADD":
             return [action.record, ...state];
         case "DELETE":

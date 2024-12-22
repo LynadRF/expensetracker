@@ -81,7 +81,9 @@ export default function Login() {
                             </button>
                         </div>
                     </fieldset>
-                    <Link to="/register">Don't have an account? Register here!</Link>
+                    <Link className="auth-link" to="/register">
+                        Don't have an account? Register here!
+                    </Link>
                 </div>
             </div>
         </>
