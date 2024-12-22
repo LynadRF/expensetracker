@@ -4,9 +4,9 @@ A simple web app where one can create and manage records about their expenses, a
 
 ## Test it locally
 
-git clone this repository, install all dependencies in both /client and /server with `npm install`, run both the client and the server in dev mode with `npm run dev`.
+git clone this repository, install all dependencies in both /client and /server with `npm install`, run the client with `npm run preview` and the server with `npm run start`.
 
-A demo account with already existing records will be created to test it out. Log into it with `email: demo@web.de` and `password: demo`.
+Go to `localhost:3000` and log in with the already created demo account with records with `email: demo@web.de` and `password: demo`.
 
 ## Built with
 
