@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import requestAPI from "../api";
 import { useNavigate } from "react-router-dom";
+import requestAPI from "../api";
 import { useUser } from "../contexts/userContext";
 
 export default function useAuthRedirect(loggedIn: string = "", loggedOut: string = "") {

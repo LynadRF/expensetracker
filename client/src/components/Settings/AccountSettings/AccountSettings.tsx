@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
+import { useNavigate } from "react-router-dom";
 import { useUser } from "../../../contexts/userContext";
 import Modal from "../../Modal/Modal";
-import "./AccountSettings.css";
 import requestAPI from "../../../api";
-import { useNavigate } from "react-router-dom";
+import "./AccountSettings.css";
 
 export default function AccountSettings() {
     const { userState, userDispatch } = useUser();
